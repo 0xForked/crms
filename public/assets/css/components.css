@@ -1747,7 +1747,7 @@ tr:first-child > td > .fc-day-grid-event {
 }
 .empty-state .empty-state-icon {
     position: relative;
-    background-color: #6777ef;
+    background-color: #3c495f;
     width: 80px;
     height: 80px;
     line-height: 100px;

@@ -8,31 +8,74 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">DASHBOARD</li>
-            <li class="{{(Request::segment(1) === 'dashboard') ? 'active' : ''}}">
-                <a class="nav-link" href="{{url('dashboard')}}">
-                    <i class="fas fa-columns"></i>
+            <li class="dropdown {{(Request::segment(1) === 'dashboard') ? 'active' : ''}}">
+                <a href="#" class="nav-link has-dropdown">
+                    <i class="fas fa-fire"></i>
                     <span>Dashboard</span>
                 </a>
+                <ul class="dropdown-menu">
+                    <li class="{{(Request::segment(2) === 'generals') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('dashboard/generals')}}">
+                            General
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(2) === 'analytics') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('dashboard/analytics')}}">
+                            Analytics
+                        </a>
+                    </li>
+                </ul>
             </li>
+
             <li class="menu-header">DATA</li>
-            <li class="{{(Request::segment(1) === 'categories') ? 'active' : ''}}">
-                <a class="nav-link" href="{{url('categories')}}">
-                    <i class="fas fa-cubes"></i>
-                    <span>Categories</span>
-                </a>
-            </li>
-            <li class="{{(Request::segment(1) === 'articles') ? 'active' : ''}}">
-                <a class="nav-link" href="{{url('articles')}}">
+            <li class="dropdown {{
+                ((Request::segment(1) === 'articles') ||
+                    (Request::segment(1) === 'categories'))
+                ? 'active'
+                : ''
+            }}">
+                <a href="#" class="nav-link has-dropdown">
                     <i class="far fa-newspaper"></i>
-                    <span>Articles</span>
+                    <span>Blog</span>
                 </a>
+                <ul class="dropdown-menu">
+                    <li class="{{(Request::segment(1) === 'categories') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('categories')}}">
+                            Categories
+                        </a>
+                    </li>
+                    <li class=" {{(Request::segment(1) === 'articles') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('articles')}}">
+                            Articles
+                        </a>
+                    </li>
+                </ul>
             </li>
-            <li class="{{(Request::segment(1) === 'projects') ? 'active' : ''}}">
-                <a class="nav-link" href="{{url('projects')}}">
+
+            <li class="dropdown {{
+                ((Request::segment(1) === 'projects') ||
+                    (Request::segment(1) === 'customers'))
+                ? 'active'
+                : ''
+            }}">
+                <a href="#" class="nav-link has-dropdown">
                     <i class="fas fa-project-diagram"></i>
-                    <span>Projects</span>
+                    <span>Work</span>
                 </a>
+                <ul class="dropdown-menu">
+                    <li class="{{(Request::segment(1) === 'customers') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('customers')}}">
+                            Customers
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(1) === 'projects') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('projects')}}">
+                            Projects
+                        </a>
+                    </li>
+                </ul>
             </li>
+
             <li class="menu-header">SITE</li>
             <li class="{{(Request::segment(1) === 'settings') ? 'active' : ''}}">
                     <a class="nav-link" href="{{url('settings')}}">

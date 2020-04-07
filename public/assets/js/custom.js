@@ -114,7 +114,7 @@ function deleteData(route, token) {
  */
 function updateStatus(status, route, token) {
     let container = document.querySelector('#statusButtonContainer')
-    var statusText = (status === 'DRAFT') ? 'Publish this Article' : 'Take down this Article'
+    var statusText = (status === 'DRAFT') ? 'Publish this Item' : 'Take down this Item'
     var alertColor = (status === 'DRAFT') ? 'success' : 'warning'
 
     let strAvailable = `

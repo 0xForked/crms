@@ -8,9 +8,14 @@ use Illuminate\Http\Request;
 class HomeController extends Controller
 {
 
-    public function index()
+    public function generals()
     {
-        return view('admin.index');
+        return view('admin.general');
+    }
+
+    public function analytics()
+    {
+        return view('admin.analytic');
     }
 
 }

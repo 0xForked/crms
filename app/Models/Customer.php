@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Project extends Model
+class Customer extends Model
 {
     use SoftDeletes;
 
@@ -15,9 +15,8 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'featured_image', 'title', 'slug', 'description',
-        'link_source', 'link_store', 'link_live',
-        'link_doc', 'type', 'status'
+        'name', 'email', 'phone', 'address_street_1', 'address_street_2',
+        'city', 'state', 'country_id', 'zip'
     ];
 
     /**
@@ -31,11 +30,12 @@ class Project extends Model
         'deleted_at'
     ];
 
-    public function customers()
+    public function projects()
     {
         return $this->belongsToMany(
-            'App\Models\Customer',
+            'App\Models\Project',
             "customers_has_projects"
         );
     }
+
 }

@@ -25,12 +25,22 @@ Route::group([
     'namespace' => 'Admin',
     'middleware' => ['auth']
 ], function () {
-    Route::get('/dashboard', 'HomeController@index');
+    Route::group([], function () {
+        Route::get('/dashboard', function () {
+            return redirect('/dashboard/generals');
+        });
+        Route::get('/dashboard/generals', 'HomeController@generals');
+        Route::get('/dashboard/analytics', 'HomeController@analytics');
+    });
 
     Route::resource('articles', 'ArticleController')->only([
         'index', 'create', 'edit', 'store',
         'update', 'destroy', 'status', 'restore'
     ]); // end of articles route
+
+    Route::resource('customers', 'CustomerController')->only([
+        'index', 'destroy'
+    ]); // end of customers route
 
     Route::resource('projects', 'ProjectController')->only([
         'index', 'create', 'edit', 'store',
