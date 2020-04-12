@@ -12,7 +12,7 @@ class CreateDatabase extends Command
      *
      * @var string
      */
-    protected $signature = 'db';
+    protected $signature = 'schema';
 
     /**
      * The console command description.
@@ -38,18 +38,22 @@ class CreateDatabase extends Command
      */
     public function handle()
     {
-        $name = config("database.connections.mysql.database");
-        $charset = config("database.connections.mysql.charset",'utf8mb4');
-        $collation = config("database.connections.mysql.collation",'utf8mb4_unicode_ci');
+        try {
+            $name = config("database.connections.mysql.database");
+            $charset = config("database.connections.mysql.charset",'utf8mb4');
+            $collation = config("database.connections.mysql.collation",'utf8mb4_unicode_ci');
 
-        $query = "CREATE DATABASE IF NOT EXISTS $name CHARACTER SET $charset COLLATE $collation;";
-        $action = DB::statement($query);
+            $query = "CREATE DATABASE IF NOT EXISTS $name CHARACTER SET $charset COLLATE $collation;";
+            $action = DB::statement($query);
 
-        if (!$action) {
-            $this->error("Failed add new schema $name on database");
-            return;
+            if (!$action) {
+                $this->error("Failed add new schema $name on database");
+                return;
+            }
+
+            $this->info("Schema $name is exist on database");
+        } catch (\Exception $e) {
+            $this->error($e->getMessage());
         }
-
-        $this->info("Schema $name is exist on database");
     }
 }

@@ -28,6 +28,12 @@
             </li>
 
             <li class="menu-header">DATA</li>
+            <li class="{{(Request::segment(1) === 'media') ? 'active' : ''}}">
+                <a class="nav-link" href="{{route('media.index')}}">
+                    <i class="fas fa-camera-retro"></i>
+                    <span>Media</span>
+                </a>
+            </li>
             <li class="dropdown {{
                 ((Request::segment(1) === 'articles') ||
                     (Request::segment(1) === 'categories'))

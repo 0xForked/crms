@@ -16,50 +16,40 @@ class CustomerController extends Controller
     public function index()
     {
         $customers = Customer::with('projects')->paginate(10);
-        return view('admin.customers.index', compact('customers'));
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('admin.customers.index', compact('customers'));
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        //
+        $request->validate(['name' => 'required']);
+
+        $data = $request->except('_token');
+
+        $store = Customer::create($data);
+
+        if (!$store) return redirect()->back()->with('error', 'Failed store Customer');
+
+        return redirect()->route('customers.index')->with('success', 'Success add new Customer');
     }
 
     /**
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
-    }
+        $customer = Customer::findOrFail($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return response()->json($customer);
     }
 
     /**
@@ -71,7 +61,7 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd($request->all());
     }
 
     /**

@@ -33,13 +33,17 @@ Route::group([
         Route::get('/dashboard/analytics', 'DashboardController@analytics');
     });
 
+    Route::resource('media', 'MediaController')->only([
+        'index', 'store', 'show', 'update', 'destroy'
+    ]); // end of media routes
+
     Route::resource('articles', 'ArticleController')->only([
         'index', 'create', 'edit', 'store',
         'update', 'destroy', 'status', 'restore'
     ]); // end of articles route
 
     Route::resource('customers', 'CustomerController')->only([
-        'index', 'destroy'
+        'index', 'store', 'show', 'update', 'destroy'
     ]); // end of customers route
 
     Route::resource('projects', 'ProjectController')->only([

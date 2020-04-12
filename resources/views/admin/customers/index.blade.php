@@ -73,8 +73,9 @@
                                 <td class="text-center">
                                     <button
                                         class="btn btn-outline-secondary"
+                                        onclick="loadData(`{{ route('customers.show', $item->id) }}`, `customer`)"
                                         data-toggle="modal"
-                                        data-target="#"
+                                        data-target="#updateCustomer"
                                     >
                                         <i class="fas fa-edit"></i>
                                     </button>
@@ -119,4 +120,5 @@
 
 @section('custom-include')
 @include('admin.customers.add')
+@include('admin.customers.edit')
 @endsection

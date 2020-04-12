@@ -2,7 +2,7 @@
     class="modal fade"
     tabindex="-1"
     role="dialog"
-    id="createCustomer"
+    id="updateCustomer"
 >
     <div
         class="modal-dialog"
@@ -10,14 +10,14 @@
     >
         <form
             method="POST"
-            action="{{route('customers.store')}}"
-            id="formCreateCustomer"
+            id="formUpdateCustomer"
         >
             @csrf
+            @method('PUT')
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title">
-                        Create new Customer!
+                        Update Customer!
                     </h5>
                 </div>
                 <div class="modal-body">
@@ -39,7 +39,6 @@
                             @foreach(countries() as $item)
                                 <option
                                     value="{{$item['id']}}"
-                                    {{ ($item['id'] == 102) ? 'selected' : '' }}
                                 >{{$item['name']}}</option>
                             @endforeach
                         </select>
@@ -75,11 +74,11 @@
                     </button>
 
                     <button
-                        onclick="updateProcess('createCustomer')"
+                        onclick="updateProcess('updateCustomer')"
                         type="submit"
                         class="btn btn-primary"
                     >
-                        Create
+                        Update
                     </button>
                 </div>
             </div>

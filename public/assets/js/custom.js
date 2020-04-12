@@ -148,6 +148,8 @@ function loadData(route, model) {
         url: route,
         success: function(data) {
             if (model === 'category') showCategory(data, route)
+            if (model === 'customer') showCustomer(data, route)
+            if (model === 'media') showMedia(data, route)
         },
         error: function(data) { console.log(data) }
     })
@@ -155,11 +157,28 @@ function loadData(route, model) {
 
 function showCategory(data, route) {
     $("#formEditCategory").attr('action', route);
-    $("#formEditCategory input[name=id]").val(data.id)
     $("#formEditCategory input[name=name]").val(data.name)
     $("#formEditCategory textarea[name=description]").val(data.description)
 }
 
+function showCustomer(data, route) {
+    $("#formUpdateCustomer").attr('action', route);
+    $("#formUpdateCustomer input[name=name]").val(data.name)
+    $("#formUpdateCustomer input[name=email]").val(data.email)
+    $("#formUpdateCustomer input[name=phone]").val(data.phone)
+    $("#formUpdateCustomer select[name=country_id]").val(data.country_id)
+    $("#formUpdateCustomer input[name=state]").val(data.state)
+    $("#formUpdateCustomer input[name=city]").val(data.city)
+    $("#formUpdateCustomer textarea[name=address_street_1]").val(data.address_street_1)
+    $("#formUpdateCustomer textarea[name=address_street_2]").val(data.address_street_2)
+    $("#formUpdateCustomer input[name=zip]").val(data.zip)
+}
+
+function showMedia(data, route) {
+    $("#formUpdateMedia").attr('action', route);
+    $("#formUpdateMedia input[name=display_name]").val(data.display_name)
+
+}
 
 function projectLinkDisplayed(type) {
     if (type === 'WEB') {
