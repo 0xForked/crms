@@ -5,17 +5,17 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class DashboardController extends Controller
 {
 
     public function generals()
     {
-        return view('admin.general');
+        return view('admin.dashboard.general');
     }
 
     public function analytics()
     {
-        return view('admin.analytic');
+        return view('admin.dashboard.analytic');
     }
 
 }

@@ -7,7 +7,7 @@
         <h2 class="section-title">Edit Project - {{$project->title}}</h2>
         <p class="section-lead">On this page, you will be able to edit a project</p>
         @if(!$errors->any())
-            <x-admin.alert/>
+            <x-admin.alert></x-admin.alert>
         @endif
 
         <div class="row">

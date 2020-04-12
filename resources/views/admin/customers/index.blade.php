@@ -7,7 +7,7 @@
         <h2 class="section-title">Customer work with!</h2>
         <p class="section-lead">On this page you can manage the customers data.</p>
         @if(!$errors->any())
-            <x-admin.alert/>
+            <x-admin.alert></x-admin.alert>
         @endif
 
         <div class="card">
@@ -102,4 +102,21 @@
             </div>
         </div>
     </div>
+
+    <div class="custom-fab">
+        <div>
+            <button
+                type="button"
+                class="btn btn-main btn-primary"
+                data-toggle="modal"
+                data-target="#createCustomer"
+            >
+                <i class="fa fa-plus"></i>
+            </button>
+        </div>
+    </div>
+@endsection
+
+@section('custom-include')
+@include('admin.customers.add')
 @endsection

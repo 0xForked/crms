@@ -8,8 +8,8 @@
         <p class="section-lead">Adjust settings and maximize data usage.</p>
 
         @if(!$errors->any())
+            <x-admin.alert></x-admin.alert>
         @endif
-        <x-admin.alert/>
 
         <div class="row">
             @include('admin.settings.partials.menu')

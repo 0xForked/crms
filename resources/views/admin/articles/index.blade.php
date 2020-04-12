@@ -7,7 +7,7 @@
         <h2 class="section-title">List of all Stories</h2>
         <p class="section-lead">On this page, you will be able to do some good stuff with the stories</p>
         @if(!$errors->any())
-            <x-admin.alert/>
+            <x-admin.alert></x-admin.alert>
         @endif
 
        <div class="card bg-transparent shadow-none">
@@ -41,7 +41,7 @@
             >
                 <i class="fa fa-plus"></i>
             </button>
-        <div>
+        </div>
     </div>
 @endsection
 
@@ -55,8 +55,8 @@
     <script>
         $(document).ready(function() {
             @if(is_null(app('request')->input('from_date')) && is_null(app('request')->input('to_date')))
-                $('#date_from_filter_article').val('{{\Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')}}')
-                $('#date_to_filter_article').val('{{\Carbon\Carbon::now()->format('Y-m-d')}}')
+                $('#date_from_filter_article').val('{{\Carbon\Carbon::now()->startOfMonth()->format('Y-m-d')}}');
+                $('#date_to_filter_article').val('{{\Carbon\Carbon::now()->format('Y-m-d')}}');
             @endif
         });
     </script>

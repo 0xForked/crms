@@ -7,7 +7,7 @@
         <h2 class="section-title">Edit Stories</h2>
         <p class="section-lead">On this page, you will be able to edit a story</p>
         @if(!$errors->any())
-            <x-admin.alert/>
+            <x-admin.alert></x-admin.alert>
         @endif
         <div class="row">
             <div class="col-12">
@@ -99,7 +99,7 @@
     <script src="{{ asset('assets/js/custom_quill_editor.js') }}"></script>
 
     <script>
-        editor.root.innerHTML = `{!! $article->content_html !!}`
+        editor.root.innerHTML = `{!! $article->content_html !!}`;
         {{--quill.setContents({!! $post->body !!}); show post body on quill--}}
     </script>
 @endsection

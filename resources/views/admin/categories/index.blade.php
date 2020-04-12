@@ -7,7 +7,7 @@
         <h2 class="section-title">Categories</h2>
         <p class="section-lead">On this page you can create, update, delete add see the list of the category.</p>
         @if(!$errors->any())
-        <x-admin.alert/>
+        <x-admin.alert></x-admin.alert>
         @endif
 
         <div class="row">

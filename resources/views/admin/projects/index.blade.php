@@ -7,7 +7,7 @@
         <h2 class="section-title">List of all Project</h2>
         <p class="section-lead">On this page, you will be able to do some good stuff with the projects</p>
         @if(!$errors->any())
-            <x-admin.alert/>
+            <x-admin.alert></x-admin.alert>
         @endif
 
         <div class="card bg-transparent shadow-none">
@@ -42,6 +42,6 @@
             >
                 <i class="fa fa-plus"></i>
             </button>
-            <div>
+        </div>
     </div>
 @endsection

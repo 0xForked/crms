@@ -29,8 +29,8 @@ Route::group([
         Route::get('/dashboard', function () {
             return redirect('/dashboard/generals');
         });
-        Route::get('/dashboard/generals', 'HomeController@generals');
-        Route::get('/dashboard/analytics', 'HomeController@analytics');
+        Route::get('/dashboard/generals', 'DashboardController@generals');
+        Route::get('/dashboard/analytics', 'DashboardController@analytics');
     });
 
     Route::resource('articles', 'ArticleController')->only([

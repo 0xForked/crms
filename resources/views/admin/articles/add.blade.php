@@ -7,7 +7,7 @@
         <h2 class="section-title">Create a new Stories</h2>
         <p class="section-lead">On this page, you will be able to create a new story</p>
         @if(!$errors->any())
-            <x-admin.alert/>
+            <x-admin.alert></x-admin.alert>
         @endif
         <div class="row">
             <div class="col-12">

@@ -8,7 +8,7 @@
         <p class="section-lead">This page display your personalisation.</p>
 
         @if(!$errors->any())
-        <x-admin.alert/>
+        <x-admin.alert></x-admin.alert>
         @endif
         <div class="card">
             <div class="card-footer bg-whitesmoke">

@@ -73,6 +73,11 @@
                             Projects
                         </a>
                     </li>
+                    <li class="">
+                        <a class="nav-link" href="">
+                            Invoices
+                        </a>
+                    </li>
                 </ul>
             </li>
 
