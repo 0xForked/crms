@@ -4,8 +4,9 @@
 - Account done
 - Setting done
 - Category done
-- Article done
-- Project done (todo next: customer, invoice, todo activity etc.)
+- media done
+- Article done (need more config)
+- Project done (todo next: customer, invoice, todo activity etc.) (need more config)
 - next Dashboard (integrated with google analytics api)
 - next AP
 

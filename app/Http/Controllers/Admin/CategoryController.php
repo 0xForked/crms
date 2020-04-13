@@ -21,6 +21,7 @@ class CategoryController extends Controller
         $categories = CategoryFilter::apply(
             $request, (new Category)->newQuery()
         )->paginate(5);
+
         return view('admin.categories.index', compact('categories'));
     }
 
@@ -38,6 +39,7 @@ class CategoryController extends Controller
         ]);
 
         $category = $request->only('name', 'description');
+
         Category::create($category);
 
         return redirect()->back()->with('success', 'Success add new category');
@@ -52,6 +54,7 @@ class CategoryController extends Controller
     public function show($id)
     {
         $category = Category::findOrFail($id);
+
         return response()->json($category);
     }
 
@@ -65,9 +68,11 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $category = Category::findOrFail($id);
+
         $category->name = $request->name;
         $category->description = $request->description;
         $category->save();
+
         return redirect()->back()->with('success', 'Success update category');
     }
 
@@ -80,7 +85,9 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
+
         $category->delete();
+
         return redirect()->route('categories.index')->with('success', 'Success delete category');
     }
 

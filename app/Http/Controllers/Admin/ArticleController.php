@@ -54,11 +54,9 @@ class ArticleController extends Controller
     {
         $request->validate(['title' => 'required']);
 
-        $file = $this->uploadFile($request);
-
         $store = Article::create([
             'category_id' => $request->category,
-            'featured_image' => $file,
+            // 'featured_image' => $file,
             'slug' => Str::slug($request->title, "-").'-'.time(),
             'title' => $request->title,
             'content_html' => $request->content_html,
@@ -98,15 +96,8 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        $file = $this->uploadFile($request);
-        if ($file) {
-           // delete old file
-            Storage::disk('public')
-                ->delete('images/articles/'.$article->featured_image);
-        }
-
         $article->category_id = $request->category;
-        $article->featured_image = ($file) ? $file : $article->featured_image;
+        // $article->featured_image = ($file) ? $file : $article->featured_image;
         $article->slug = Str::slug($request->title, "-").'-'.time();
         $article->title = $request->title;
         $article->content_html = $request->content_html;
@@ -170,8 +161,6 @@ class ArticleController extends Controller
         $article = Article::withTrashed()->findOrFail($id);
 
         if ($article->deleted_at) {
-            Storage::disk('public')
-                ->delete('images/articles/'.$article->featured_image);
             $article->forceDelete();
         }
 
@@ -181,24 +170,5 @@ class ArticleController extends Controller
             'success',
             'Success delete article'
         );
-    }
-
-    private function uploadFile(Request $request)
-    {
-        $fileName = null;
-        if($request->hasFile("featured_image")) {
-            $request->validate([
-                "featured_image" => 'required|mimes:png,jpeg,jpg,gif,svg|max:2048', //2mb
-            ]);
-            if (!File::isDirectory(storage_path('app/public/images/articles'))) {
-                File::makeDirectory(storage_path('app/public/images/articles'));
-            }
-            // create new name for file
-            $file = $request->file("featured_image");
-            $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            // upload original file
-            Image::make($file)->save(storage_path('app/public/images/articles/') . $fileName);
-        }
-        return $fileName;
     }
 }

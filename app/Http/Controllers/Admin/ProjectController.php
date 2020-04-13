@@ -52,10 +52,8 @@ class ProjectController extends Controller
 
         $store_link = $this->storeLink($request);
 
-        $file = $this->uploadFile($request);
-
         $store = Project::create([
-            'featured_image' => $file,
+            // 'featured_image' => $file,
             'title' => $request->title,
             'slug' => Str::slug($request->title, "-").'-'.time(),
             'description' => $request->description,
@@ -98,15 +96,7 @@ class ProjectController extends Controller
 
         $store_link = $this->storeLink($request);
 
-        $file = $this->uploadFile($request);
-
-        if ($file) {
-            // delete old file
-            Storage::disk('public')
-                ->delete('images/projects/'.$project->featured_image);
-        }
-
-        $project->featured_image = ($file) ? $file : $project->featured_image;
+        // $project->featured_image = ($file) ? $file : $project->featured_image;
         $project->title = $request->title;
         $project->slug = Str::slug($request->title, "-").'-'.time();
         $project->description = $request->description;
@@ -173,8 +163,6 @@ class ProjectController extends Controller
         $project = Project::withTrashed()->findOrFail($id);
 
         if ($project->deleted_at) {
-            Storage::disk('public')
-                ->delete('images/projects/'.$project->featured_image);
             $project->forceDelete();
         }
 
@@ -184,25 +172,6 @@ class ProjectController extends Controller
             'success',
             'Success delete project'
         );
-    }
-
-    private function uploadFile(Request $request)
-    {
-        $fileName = null;
-        if($request->hasFile("featured_image")) {
-            $request->validate([
-                "featured_image" => 'required|mimes:png,jpeg,jpg,gif,svg|max:2048', //2mb
-            ]);
-            if (!File::isDirectory(storage_path('app/public/images/projects'))) {
-                File::makeDirectory(storage_path('app/public/images/projects'));
-            }
-            // create new name for file
-            $file = $request->file("featured_image");
-            $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
-            // upload original file
-            Image::make($file)->save(storage_path('app/public/images/projects/') . $fileName);
-        }
-        return $fileName;
     }
 
     private function storeLink(Request $request)
