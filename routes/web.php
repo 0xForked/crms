@@ -43,7 +43,7 @@ Route::group([
     ]); // end of articles route
 
     Route::resource('customers', 'CustomerController')->only([
-        'index', 'store', 'show', 'update', 'destroy'
+        'index', 'store', 'show', 'update', 'restore', 'destroy'
     ]); // end of customers route
 
     Route::resource('projects', 'ProjectController')->only([

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Filters\CustomerFilter;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -11,11 +12,14 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      *
+     * @param Request $request
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $customers = Customer::with('projects')->paginate(10);
+        $customers = CustomerFilter::apply(
+            $request, (new Customer)->newQuery()
+        )->with('projects')->paginate(10);
 
         return view('admin.customers.index', compact('customers'));
     }
@@ -57,21 +61,67 @@ class CustomerController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request, $id)
     {
-        dd($request->all());
+        $customer = Customer::findOrFail($id);
+
+        $customer->name = $request->name;
+        $customer->email =  $request->email;
+        $customer->phone = $request->phone;
+        $customer->address_street_1 = $request->address_street_1;
+        $customer->address_street_2 = $request->address_street_2;
+        $customer->city = $request->city;
+        $customer->state = $request->state;
+        $customer->country_id = $request->country_id;
+        $customer->zip = $request->zip;
+        $customer->save();
+
+        return redirect()->route('customers.index')->with(
+            'success',
+            'Success update customer'
+        );
+    }
+
+    /**
+     * restore the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function restore($id)
+    {
+        $customer = Customer::onlyTrashed()->findOrFail($id);
+
+        $customer->restore();
+
+        return redirect()->route('customers.index')->with(
+            'success',
+            'Success restore customer'
+        );
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $id
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::withTrashed()->findOrFail($id);
+
+        if ($customer->deleted_at) {
+            $customer->forceDelete();
+        }
+
+        $customer->delete();
+
+        return redirect()->route('customers.index')->with(
+            'success',
+            'Success delete customer'
+        );
     }
 }

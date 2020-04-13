@@ -10,6 +10,11 @@
             <x-admin.alert></x-admin.alert>
         @endif
 
+        @if(count($media) < 1)
+            <div class="text-center p-5 mx-auto">
+                <h1> You haven't any uploaded media! </h1>
+            </div>
+        @endif
         <section id="images">
             <div class="card-columns">
                 @foreach ($media as $item)

@@ -12,7 +12,28 @@
 
         <div class="card">
             <div class="card-header">
-                <h4>List of Customer</h4>
+                <div class="card-header-filter">
+                    <div class="d-flex">
+                        <h4>List of Customer</h4>
+                        @if(app('request')->input('status') === 'trash')
+                            <a
+                                class="badge badge-pill badge-dark"
+                                type="submit"
+                                href="{{ route('customers.index') }}"
+                            >
+                                List
+                            </a>
+                        @else
+                            <a
+                                class="badge badge-pill badge-dark"
+                                type="submit"
+                                href="{{ route('customers.index', ['status' => 'trash']) }}"
+                            >
+                                Trash
+                            </a>
+                        @endif
+                    </div>
+                </div>
                 <div class="card-header-form">
                     <form
                         method="GET"
@@ -71,22 +92,47 @@
                                     @endif
                                 </td>
                                 <td class="text-center">
-                                    <button
-                                        class="btn btn-outline-secondary"
-                                        onclick="loadData(`{{ route('customers.show', $item->id) }}`, `customer`)"
-                                        data-toggle="modal"
-                                        data-target="#updateCustomer"
-                                    >
-                                        <i class="fas fa-edit"></i>
-                                    </button>
+                                    @if(!$item->deleted_at)
+                                        <button
+                                            class="btn btn-outline-secondary"
+                                            onclick="loadData(`{{ route('customers.show', $item->id) }}`, `customer`)"
+                                            data-toggle="modal"
+                                            data-target="#updateCustomer"
+                                        >
+                                            <i class="fas fa-edit"></i>
+                                        </button>
+                                    @endif
+
+                                    @if($item->deleted_at)
+                                        <a
+                                            href="{{ route('customers.restore', $item->id) }}"
+                                            class="btn btn-outline-success btn-block"
+                                            onclick="event.preventDefault();
+                                            document.getElementById('restore-form').submit();
+                                            showLoading();"
+                                        >
+                                            <i class="fas fa-trash-restore"></i> Restore
+                                        </a>
+
+                                        <form
+                                            id="restore-form"
+                                            action="{{ route('customers.restore', $item->id) }}"
+                                            method="POST"
+                                            style="display: none;"
+                                        >
+                                            @csrf
+                                            @method('PUT')
+                                        </form>
+                                     @endif
 
                                     <button
-                                        class="btn btn-outline-danger"
+                                        class="btn btn-outline-danger {{ ($item->deleted_at) ? 'btn-block  mt-2' : ''  }}"
                                         onclick="deleteData(`{{ route('customers.destroy', $item->id) }}`, `{{csrf_token()}}`)"
                                         data-toggle="modal"
                                         data-target="#deleteModal"
                                     >
                                         <i class="fas fa-trash"></i>
+                                            {{ ($item->deleted_at) ? 'Delete' : ''  }}
                                     </button>
                                 </td>
                             </tr>
