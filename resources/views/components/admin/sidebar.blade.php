@@ -24,6 +24,11 @@
                             Analytics
                         </a>
                     </li>
+                    <li class="{{(Request::segment(2) === 'incomes') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('dashboard/incomes')}}">
+                            Incomes
+                        </a>
+                    </li>
                 </ul>
             </li>
 

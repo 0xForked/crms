@@ -31,6 +31,7 @@ Route::group([
         });
         Route::get('/dashboard/generals', 'DashboardController@generals');
         Route::get('/dashboard/analytics', 'DashboardController@analytics');
+        Route::get('/dashboard/incomes', 'DashboardController@incomes');
     });
 
     Route::resource('media', 'MediaController')->only([
