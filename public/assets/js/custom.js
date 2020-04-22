@@ -7,6 +7,8 @@
 
 "use strict";
 
+let baseUrl = "http://localhost:8000/"
+
 /**
  *  Show File Upload name to File upload label
  *  file upload id must not equal with file upload label + add -label world
@@ -22,8 +24,8 @@ $(document).ready(function() {
 
     // to show file name the label
     $('input[type="file"]').change(function(e) {
-        var fileName = e.target.files[0].name;
-        var targetId = '#'+e.target.id + '-label'
+        let fileName = e.target.files[0].name;
+        let targetId = '#'+e.target.id + '-label'
         $(targetId).text(fileName);
     });
 
@@ -35,11 +37,11 @@ $(document).ready(function() {
 
 
     // project type
-    var type = $("#type_project")
+    let type = $("#type_project")
     projectLinkDisplayed(type.val())
 
     type.change(function() {
-        var selectedType = $(this).children("option:selected").val();
+        let selectedType = $(this).children("option:selected").val();
         projectLinkDisplayed(selectedType)
     });
 
@@ -67,7 +69,7 @@ function deleteProcess() {
 }
 
 function updateProcess(modal) {
-    var id = '#'+modal
+    let id = '#'+modal
     $(id).modal('hide');
     showLoading()
 }
@@ -114,8 +116,8 @@ function deleteData(route, token) {
  */
 function updateStatus(status, route, token) {
     let container = document.querySelector('#statusButtonContainer')
-    var statusText = (status === 'DRAFT') ? 'Publish this Item' : 'Take down this Item'
-    var alertColor = (status === 'DRAFT') ? 'success' : 'warning'
+    let statusText = (status === 'DRAFT') ? 'Publish this Item' : 'Take down this Item'
+    let alertColor = (status === 'DRAFT') ? 'success' : 'warning'
 
     let strAvailable = `
         <a  href="${route}"
@@ -141,8 +143,8 @@ function updateStatus(status, route, token) {
     return container.innerHTML = strAvailable
 }
 
-
 function loadData(route, model) {
+    if (model === 'mediaList') $("#media-loading-message").removeClass('d-none')
     $.ajax({
         type: 'GET',
         url: route,
@@ -150,6 +152,7 @@ function loadData(route, model) {
             if (model === 'category') showCategory(data, route)
             if (model === 'customer') showCustomer(data, route)
             if (model === 'media') showMedia(data, route)
+            if (model === 'mediaList') showMediaList(data)
         },
         error: function(data) { console.log(data) }
     })
@@ -177,8 +180,66 @@ function showCustomer(data, route) {
 function showMedia(data, route) {
     $("#formUpdateMedia").attr('action', route);
     $("#formUpdateMedia input[name=display_name]").val(data.display_name)
-
 }
+
+$("#search-media").keypress(function(e) {
+    if(e.which === 13) {
+        loadData(
+            baseUrl+'api/media?search='+$("#search-media").val(),
+            'mediaList'
+        )
+    }
+});
+
+function showMediaList(data) {
+    $("#media-modal-container").empty()
+    let container = document.querySelector('#media-modal-container')
+
+    let currentMessage = $("#media-loading-message")
+    currentMessage.html("Loading media . . .")
+    currentMessage.addClass('d-none')
+
+    if (data.length === 0) {
+        currentMessage.removeClass('d-none')
+        currentMessage.html("No media found!")
+        return
+    }
+
+    let object = '';
+    data.forEach(function (item) {
+        object += `
+          <div class="col-md-3 p-3">
+             <div class="custom-control custom-checkbox image-checkbox">
+                <input
+                    type="radio"
+                    class="custom-control-input"
+                    name="media_item_modal"
+                    id="`+item.id+`"
+                    value="`+item.name+`"
+                >
+                <label class="custom-control-label" for="`+item.id+`">
+                    <img
+                        src="`+baseUrl+`storage/images/`+item.name+`"
+                        alt="`+item.name+`"
+                        class="img-fluid"
+                    >
+                </label>
+             </div>
+         </div>
+        `
+    })
+
+    return container.innerHTML = object
+}
+
+$("#media-button-modal").on("click", function (e) {
+    $("input[name='media_item_modal']").each(function () {
+        if (this.checked) {
+            $("#featured_image_link").val(baseUrl + 'storage/images/' + this.value)
+            $("#mediaModal").modal('toggle');
+        }
+    })
+})
 
 function projectLinkDisplayed(type) {
     if (type === 'WEB') {
@@ -192,27 +253,27 @@ function projectLinkDisplayed(type) {
     }
 }
 
-var iteration_form_store_link = 1;
+let iteration_form_store_link = 1;
 const item_default_form_store_link = `
-            <tr id='storeLink`+iteration_form_store_link+`'>
-                <td>
-                    <select class="form-control" name="store_name`+iteration_form_store_link+`">
-                        <option value="google"> Google Play Store</option>
-                        <option value="apple"> Apple App Store </option>
-                    </select>
-                </td>
-                <td>
-                    <input
-                        name="store_link`+iteration_form_store_link+`"
-                        type="text"
-                        class="form-control"
-                    >
-                </td>
-                <td class="text-center" style="vertical-align: middle;">
-                    <input type="checkbox" name="record" disabled>
-                </td>
-            </tr>
-        `;
+    <tr id='storeLink`+iteration_form_store_link+`'>
+         <td>
+              <select class="form-control" name="store_name`+iteration_form_store_link+`">
+                   <option value="google"> Google Play Store</option>
+                   <option value="apple"> Apple App Store </option>
+              </select>
+         </td>
+         <td>
+             <input
+                name="store_link`+iteration_form_store_link+`"
+                type="text"
+                class="form-control"
+             >
+         </td>
+         <td class="text-center" style="vertical-align: middle;">
+             <input type="checkbox" name="record" disabled>
+         </td>
+    </tr>
+`;
 $("#table_form_store_link").find('tbody').append(item_default_form_store_link).trigger('change');
 iteration_form_store_link = iteration_form_store_link + 1
 $("#add_row_form_store_link").click( function() {
@@ -244,9 +305,7 @@ $("#add_row_form_store_link").click( function() {
     }
 });
 
-
-
-var iteration_form_store_link_update = 2
+let iteration_form_store_link_update = 2
 
 function deleteFormLinkUpdate(id) {
     $("table tbody").find('button[name="delete"]').each(function() {
@@ -285,12 +344,3 @@ function addFormLinkUpdate() {
     }
 }
 
-$.uploadPreview({
-    input_field: "#image-upload",   // Default: .image-upload
-    preview_box: "#image-preview",  // Default: .image-preview
-    label_field: "#image-label",    // Default: .image-label
-    label_default: "Choose File",   // Default: Choose File
-    label_selected: "Change File",  // Default: Change File
-    no_label: false,                // Default: false
-    success_callback: null          // Default: null
-});

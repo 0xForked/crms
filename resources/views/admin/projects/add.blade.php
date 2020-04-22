@@ -100,10 +100,11 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <div id="image-preview" class="image-preview">
-                                        <label for="image-upload" id="image-label">Choose File</label>
-                                        <input type="file" name="featured_image" id="image-upload" />
-                                    </div>
+                                    <input type="text" name="featured_image" class="form-control">
+                                    <small class="text-muted">
+                                        This form stand for image link, you can get the link from
+                                        <a href="{{route('media.index')}}" target="_blank">media</a>.
+                                    </small>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">

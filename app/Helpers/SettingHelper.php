@@ -7,7 +7,7 @@
      function site_setting()
      {
          if (Schema::hasTable('settings')) {
-             return to_assoc_array(Setting::all());;
+             return to_assoc_array(Setting::all());
          }
          return false;
      }

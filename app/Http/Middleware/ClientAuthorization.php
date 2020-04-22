@@ -16,7 +16,7 @@ class ClientAuthorization
      */
     public function handle($request, Closure $next, $guard = null)
     {
-
+        // on this middleware we will authenticate the client for security purpose
 
         return $next($request);
     }

@@ -14,10 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
-
+Route::get('/media', 'Api\MediaController@index');
 
 Route::middleware(['auth_client'])->group(function () {
     // protected route

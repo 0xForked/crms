@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\ProjectFilter;
+use App\Http\Requests\StoreProjectRequest;
 use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -46,14 +47,12 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreProjectRequest $request)
     {
-        $request->validate(['title' => 'required']);
-
         $store_link = $this->storeLink($request);
 
         $store = Project::create([
-            // 'featured_image' => $file,
+            'featured_image' => $request->featured_image,
             'title' => $request->title,
             'slug' => Str::slug($request->title, "-").'-'.time(),
             'description' => $request->description,
@@ -96,7 +95,7 @@ class ProjectController extends Controller
 
         $store_link = $this->storeLink($request);
 
-        // $project->featured_image = ($file) ? $file : $project->featured_image;
+        $project->featured_image = $request->featured_image;
         $project->title = $request->title;
         $project->slug = Str::slug($request->title, "-").'-'.time();
         $project->description = $request->description;

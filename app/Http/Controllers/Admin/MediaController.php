@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreMediaRequest;
 use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -27,16 +28,11 @@ class MediaController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreMediaRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreMediaRequest $request)
     {
-        $request->validate([
-            "file" => 'required|mimes:png,jpeg,jpg,gif,svg|max:2048', //2mb
-            'display_name' => 'required'
-        ]);
-
         if (!File::isDirectory(storage_path('app/public/images'))) {
             File::makeDirectory(storage_path('app/public/images'));
         }

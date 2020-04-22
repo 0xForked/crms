@@ -31,12 +31,10 @@ class CreateCustomerTable extends Migration
         Schema::create('customers_has_projects', function (Blueprint $table) {
             $table->unsignedBigInteger('customer_id');
             $table->unsignedBigInteger('project_id');
-
             $table->foreign('customer_id')
                 ->references('id')
                 ->on('customers')
                 ->onDelete('cascade');
-
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')

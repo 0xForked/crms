@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateBasicProfileRequest;
+use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -29,10 +31,8 @@ class AccountController extends Controller
      * @param User id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function basic(Request $request)
+    public function basic(UpdateBasicProfileRequest $request)
     {
-        $request->validate(['name' => 'required']);
-
         $user = User::findOrFail(auth()->id());
         $user->name = $request->name;
         $user->save();
@@ -50,14 +50,8 @@ class AccountController extends Controller
      * @param User id
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function password(Request $request)
+    public function password(UpdatePasswordRequest $request)
     {
-        $request->validate([
-            'password' => 'required',
-            'new_password' => 'required|min:6|required_with:new_password_confirmation|same:new_password_confirmation',
-            'new_password_confirmation' => 'min:6',
-        ]);
-
         $user = User::findOrFail(auth()->id());
 
         if(!password_verify($request->password, $user->password)) {

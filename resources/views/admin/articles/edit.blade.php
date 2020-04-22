@@ -57,14 +57,11 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <div
-                                        id="image-preview"
-                                        class="image-preview"
-                                        style="background-image: url('{{asset('storage/images/articles/')}}/{{$article->featured_image}}'); background-size: cover; background-position: center center;"
-                                    >
-                                        <label for="image-upload" id="image-label">Choose File</label>
-                                        <input type="file" name="featured_image" id="image-upload" />
-                                    </div>
+                                    <input type="text" name="featured_image" class="form-control"  value="{{$article->featured_image}}">
+                                    <small class="text-muted">
+                                        This form stand for image link, you can get the link from
+                                        <a href="{{route('media.index')}}" target="_blank">media</a>.
+                                    </small>
                                 </div>
                             </div>
                             <div class="form-group row mb-4">

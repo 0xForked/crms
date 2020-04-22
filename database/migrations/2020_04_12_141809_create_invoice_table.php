@@ -67,12 +67,10 @@ class CreateInvoiceTable extends Migration
         Schema::create('invoices_has_projects', function (Blueprint $table) {
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('project_id');
-
             $table->foreign('invoice_id')
                 ->references('id')
                 ->on('invoices')
                 ->onDelete('cascade');
-
             $table->foreign('project_id')
                 ->references('id')
                 ->on('projects')

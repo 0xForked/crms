@@ -14,33 +14,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () { return redirect('login'); });
-
-Auth::routes([
-    'register' => false,
-    'verify' => false
-]);
+// when open resource_url '/' user will redirect to /login
+Route::get('/', 'RedirectionController@login');
+// when open resource_url '/dashboard' user will redirect to /dashboard/generals (default)
+Route::get('/dashboard', 'RedirectionController@dashboard');
+// route for initialize laravel authentication
+Auth::routes(['register' => false, 'verify' => false]);
 
 Route::group([
     'namespace' => 'Admin',
     'middleware' => ['auth']
 ], function () {
-    Route::group([], function () {
-        Route::get('/dashboard', function () {
-            return redirect('/dashboard/generals');
-        });
-        Route::get('/dashboard/generals', 'DashboardController@generals');
-        Route::get('/dashboard/analytics', 'DashboardController@analytics');
-        Route::get('/dashboard/incomes', 'DashboardController@incomes');
-    });
+    Route::get('/dashboard/generals', 'DashboardController@generals');
+    Route::get('/dashboard/analytics', 'DashboardController@analytics');
+    Route::get('/dashboard/incomes', 'DashboardController@incomes');
 
     Route::resource('media', 'MediaController')->only([
         'index', 'store', 'show', 'update', 'destroy'
     ]); // end of media routes
 
     Route::resource('articles', 'ArticleController')->only([
-        'index', 'create', 'edit', 'store',
-        'update', 'destroy', 'status', 'restore'
+        'index', 'create', 'edit', 'store', 'update', 'destroy', 'status', 'restore'
     ]); // end of articles route
 
     Route::resource('customers', 'CustomerController')->only([
@@ -48,8 +42,7 @@ Route::group([
     ]); // end of customers route
 
     Route::resource('projects', 'ProjectController')->only([
-        'index', 'create', 'edit', 'store',
-        'update', 'destroy', 'status', 'restore'
+        'index', 'create', 'edit', 'store', 'update', 'destroy', 'status', 'restore'
     ]); // end of projects route
 
     Route::resource('categories', 'CategoryController')->only([

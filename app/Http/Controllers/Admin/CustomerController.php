@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Filters\CustomerFilter;
+use App\Http\Requests\StoreCustomerRequest;
 use App\Models\Customer;
 use Illuminate\Http\Request;
 
@@ -27,13 +28,11 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreCustomerRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreCustomerRequest $request)
     {
-        $request->validate(['name' => 'required']);
-
         $data = $request->except('_token');
 
         $store = Customer::create($data);

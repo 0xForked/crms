@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\ArticleFilter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\File;
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Carbon;
-use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -50,13 +47,11 @@ class ArticleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreArticleRequest $request)
     {
-        $request->validate(['title' => 'required']);
-
         $store = Article::create([
             'category_id' => $request->category,
-            // 'featured_image' => $file,
+            'featured_image' => $request->featured_image,
             'slug' => Str::slug($request->title, "-").'-'.time(),
             'title' => $request->title,
             'content_html' => $request->content_html,
@@ -97,7 +92,7 @@ class ArticleController extends Controller
         $article = Article::findOrFail($id);
 
         $article->category_id = $request->category;
-        // $article->featured_image = ($file) ? $file : $article->featured_image;
+        $article->featured_image = $request->featured_image;
         $article->slug = Str::slug($request->title, "-").'-'.time();
         $article->title = $request->title;
         $article->content_html = $request->content_html;
@@ -171,4 +166,5 @@ class ArticleController extends Controller
             'Success delete article'
         );
     }
+
 }

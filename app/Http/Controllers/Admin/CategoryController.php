@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\StoreCategoryRequest;
 use App\Models\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Filters\CategoryFilter;
@@ -31,13 +32,8 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreCategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-        ]);
-
         $category = $request->only('name', 'description');
 
         Category::create($category);
