@@ -100,10 +100,16 @@
                             <div class="form-group row mb-4">
                                 <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Thumbnail</label>
                                 <div class="col-sm-12 col-md-7">
-                                    <input type="text" name="featured_image" class="form-control">
+                                    <input type="text" name="featured_image" id="featured_image_link" class="form-control">
                                     <small class="text-muted">
                                         This form stand for image link, you can get the link from
                                         <a href="{{route('media.index')}}" target="_blank">media</a>.
+                                        Or you can <a
+                                            href="#"
+                                            data-toggle="modal"
+                                            data-target="#mediaModal"
+                                            onclick="loadData(`{{ url('api/media') }}`, `mediaList`)"
+                                        >search</a>.
                                     </small>
                                 </div>
                             </div>
@@ -130,4 +136,10 @@
     </div>
 @endsection
 
+@section('custom-include')
+    <x-admin.image/>
+@endsection
 
+@section('custom-style')
+    <link href="{{ asset('assets/css/bootstrap-image-checkbox.css') }}" rel="stylesheet">
+@endsection

@@ -232,13 +232,18 @@ function showMediaList(data) {
     return container.innerHTML = object
 }
 
-$("#media-button-modal").on("click", function (e) {
+$("#media-button-modal").on("click", function () {
+    let setMessage = true
+
     $("input[name='media_item_modal']").each(function () {
         if (this.checked) {
             $("#featured_image_link").val(baseUrl + 'storage/images/' + this.value)
             $("#mediaModal").modal('toggle');
+            setMessage = false
         }
     })
+
+    if (setMessage) alert('No media selected!')
 })
 
 function projectLinkDisplayed(type) {
