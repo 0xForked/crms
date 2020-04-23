@@ -144,7 +144,11 @@ function updateStatus(status, route, token) {
 }
 
 function loadData(route, model) {
-    if (model === 'mediaList') $("#media-loading-message").removeClass('d-none')
+    if (model === 'mediaList') {
+        $("#media-modal-container").empty()
+        $("#media-loading-message").removeClass('d-none')
+    }
+
     $.ajax({
         type: 'GET',
         url: route,
@@ -192,7 +196,6 @@ $("#search-media").keypress(function(e) {
 });
 
 function showMediaList(data) {
-    $("#media-modal-container").empty()
     let container = document.querySelector('#media-modal-container')
 
     let currentMessage = $("#media-loading-message")
