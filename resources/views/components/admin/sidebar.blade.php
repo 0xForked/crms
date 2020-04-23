@@ -65,7 +65,8 @@
 
             <li class="dropdown {{
                 ((Request::segment(1) === 'projects') ||
-                    (Request::segment(1) === 'customers'))
+                    (Request::segment(1) === 'customers') ||
+                    (Request::segment(1) === 'invoices'))
                 ? 'active'
                 : ''
             }}">
@@ -84,8 +85,8 @@
                             Projects
                         </a>
                     </li>
-                    <li class="">
-                        <a class="nav-link" href="">
+                    <li class="{{(Request::segment(1) === 'invoices') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('invoices')}}">
                             Invoices
                         </a>
                     </li>

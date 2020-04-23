@@ -49,6 +49,10 @@ Route::group([
         'index', 'show', 'store', 'update', 'destroy'
     ]); // end of categories routes
 
+    Route::resource('invoices', 'InvoiceController')->only([
+        'index'
+    ]); // end of invoices routes
+
     // settings routes
     Route::get('/settings', 'SettingController@index');
     Route::put('/settings/general', 'SettingController@general');

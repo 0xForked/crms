@@ -39,8 +39,9 @@ class CreateInvoiceTable extends Migration
                 'PAID' // dibayar tahapan telah selesai
             ])->default('GENERATED');
 
-            $table->string('tax_per_item');
-            $table->string('discount_per_item');
+            $table->unsignedBigInteger('price_item'); // in numeric
+            $table->unsignedBigInteger('tax_item'); // in numeric in 100%
+            $table->unsignedBigInteger('discount_item'); // in numeric in 100%
             $table->string('discount_type')->nullable();
             $table->text('notes')->nullable();
 

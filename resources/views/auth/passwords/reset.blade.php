@@ -30,7 +30,9 @@
                                 </p>
                             </div>
 
-                            <form class="mt-8">
+                            <form class="mt-8" method="POST" action="{{ route('password.update') }}">
+                                @csrf
+                                <input type="hidden" name="token" value="{{ $token }}">
                                 <div class="mx-auto max-w-lg">
                                     <div class="py-2">
                                         <span
@@ -40,14 +42,23 @@
                                         </span>
                                         <input
                                             type="email"
+                                            name="email"
                                             class="text-md mt-2 block px-5 py-3 rounded-lg
                                                 w-full bg-white border-2 border-gray-300
                                                 placeholder-gray-600 shadow-md
                                                 focus:placeholder-gray-500focus:bg-white
                                                 focus:border-gray-600 focus:outline-none"
+                                            value="{{ $email ?? old('email') }}"
                                             required
                                             autofocus
                                         >
+                                        @error('email')
+                                        <span
+                                            class="pt-5 px-1 text-sm text-red-500"
+                                        >
+                                          {{$message}}
+                                        </span>
+                                        @enderror
                                     </div>
 
                                     <div class="py-2">
@@ -57,6 +68,7 @@
                                         <div class="relative">
                                             <input
                                                 type="password"
+                                                name="password"
                                                 class="text-md mt-2 block px-5 py-3 rounded-lg
                                                       w-full bg-white border-2
                                                       border-gray-300 placeholder-gray-600 shadow-md
@@ -66,6 +78,13 @@
                                                       focus:outline-none"
                                                 required
                                             >
+                                            @error('password')
+                                            <span
+                                                class="pt-5 px-1 text-sm text-red-500"
+                                            >
+                                              {{$message}}
+                                            </span>
+                                            @enderror
                                         </div>
                                     </div>
 
@@ -76,6 +95,7 @@
                                         <div class="relative">
                                             <input
                                                 type="password"
+                                                name="password_confirmation"
                                                 class="text-md mt-2 block px-5 py-3 rounded-lg
                                                       w-full bg-white border-2
                                                       border-gray-300 placeholder-gray-600 shadow-md
