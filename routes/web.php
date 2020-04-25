@@ -54,7 +54,7 @@ Route::group([
     ]); // end of categories routes
 
     Route::resource('invoices', 'InvoiceController')->only([
-        'index'
+        'index', 'create'
     ]); // end of invoices routes
 
     // settings routes

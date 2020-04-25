@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\UpdateBasicProfileRequest;
 use App\Http\Requests\UpdatePasswordRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
@@ -21,6 +20,7 @@ class AccountController extends Controller
     public function index()
     {
         $user = User::findOrFail(auth()->id());
+
         return view('admin.accounts.index', compact('user'));
     }
 

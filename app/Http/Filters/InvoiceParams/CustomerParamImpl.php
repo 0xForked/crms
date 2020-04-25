@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Filters\ArticleParams;
+namespace App\Http\Filters\InvoiceParams;
 
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Filters\Params;
 
-class StatusParamImpl implements Params
+class CustomerParamImpl implements Params
 {
 
     /**
@@ -19,9 +20,9 @@ class StatusParamImpl implements Params
     {
         if ($value === ALL) return $builder;
 
-        if ($value === TRASHED) return $builder->onlyTrashed();
+        $customer = Customer::where('name', $value)->first();
 
-        return $builder->where('status',  $value);
+        return $builder->where('customer_id', $customer->id);
     }
 
 }

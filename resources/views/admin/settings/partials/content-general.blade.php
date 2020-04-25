@@ -52,7 +52,7 @@
                     <label for="site-title" class="form-control-label col-sm-3 text-md-right">Analytics code </label>
                     <div class="col-sm-6 col-md-9">
                         <input type="text" name="site_analytics_id" class="form-control" value="{{ $settings['site_analytics_id']->value }}">
-                        <div class="form-text text-muted">Code for <a href="https://support.google.com/analytics/answer/7372977?hl=en">google analitics</a> to tract this site traffic.</div>
+                        <div class="form-text text-muted">Code for <a href="https://support.google.com/analytics/answer/7372977?hl=en">google analitics</a> to tract front-office site traffic.</div>
                     </div>
                 </div>
             </div>

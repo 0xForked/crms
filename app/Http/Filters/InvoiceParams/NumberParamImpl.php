@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Filters\ArticleParams;
+namespace App\Http\Filters\InvoiceParams;
 
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Filters\Params;
 
-class StatusParamImpl implements Params
+class NumberParamImpl implements Params
 {
 
     /**
@@ -13,15 +13,11 @@ class StatusParamImpl implements Params
      *
      * @param Builder $builder
      * @param mixed $value
-     * @return bool|Builder
+     * @return Builder $builder
      */
     public static function apply(Builder $builder, $value)
     {
-        if ($value === ALL) return $builder;
-
-        if ($value === TRASHED) return $builder->onlyTrashed();
-
-        return $builder->where('status',  $value);
+        return $builder->where('invoice_number', 'LIKE', "%$value%");
     }
 
 }

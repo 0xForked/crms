@@ -18,6 +18,7 @@ class TypeParamImpl implements Params
     public static function apply(Builder $builder, $value)
     {
         if ($value === ALL) return $builder;
+
         return $builder->where('type', $value);
     }
 

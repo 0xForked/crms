@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreArticleRequest;
-use App\Models\Article;
-use App\Models\Category;
+use App\Models\{Article, Category};
 use App\Http\Controllers\Controller;
 use App\Http\Filters\ArticleFilter;
 use Illuminate\Http\Request;
@@ -38,6 +37,7 @@ class ArticleController extends Controller
     public function create()
     {
         $categories = Category::all();
+
         return view('admin.articles.add', compact('categories'));
     }
 

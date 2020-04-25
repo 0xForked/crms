@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Filters\ArticleParams;
+namespace App\Http\Filters\InvoiceParams;
 
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Filters\Params;
+use Carbon\Carbon;
 
-class StatusParamImpl implements Params
+class ToDateParamImpl implements Params
 {
 
     /**
@@ -17,11 +18,9 @@ class StatusParamImpl implements Params
      */
     public static function apply(Builder $builder, $value)
     {
-        if ($value === ALL) return $builder;
+        $date = Carbon::createFromFormat('Y-m-d', $value);
 
-        if ($value === TRASHED) return $builder->onlyTrashed();
-
-        return $builder->where('status',  $value);
+        return $builder->where('created_at', '<=',  $date->format('Y-m-d 23:59:59'));
     }
 
 }

@@ -26,7 +26,7 @@
                                     text-style="font-mono"></x-auth.text-button>
                                 <span class="font-semibold ml-2">Assets</span>
                                 <p class="text-sm mt-2">
-                                    Use your credentials to do something cool on the <span class="font-semibold">dark side</span>!
+                                    Use your credentials to do something cool on the <span class="font-semibold">DARK SIDE</span>!
                                 </p>
                             </div>
 

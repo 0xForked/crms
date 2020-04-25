@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Filters\ArticleParams;
+namespace App\Http\Filters\InvoiceParams;
 
 use Illuminate\Database\Eloquent\Builder;
 use App\Http\Filters\Params;

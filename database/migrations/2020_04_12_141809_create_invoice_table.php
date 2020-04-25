@@ -33,11 +33,11 @@ class CreateInvoiceTable extends Migration
             $table->string('reference_number')->nullable(); // masih blm tau
 
             $table->enum('status', [
-                "GENERATED", // default dibuat perlu disortir lagi
+                'DRAFT', // default dibuat perlu disortir lagi
                 'NOTIFIED', // diberitahu sudah selesai di sortir dirikim ke customer
                 'PROCEED', // sendang proses, menunggu pembayaran dari customer
                 'PAID' // dibayar tahapan telah selesai
-            ])->default('GENERATED');
+            ])->default('DRAFT');
 
             $table->unsignedBigInteger('price_item'); // in numeric
             $table->unsignedBigInteger('tax_item'); // in numeric in 100%

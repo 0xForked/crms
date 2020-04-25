@@ -18,7 +18,9 @@ class StatusParamImpl implements Params
     public static function apply(Builder $builder, $value)
     {
         if ($value === ALL) return $builder;
+
         if ($value === TRASHED) return $builder->onlyTrashed();
+
         return $builder->where('status',  $value);
     }
 
