@@ -21,6 +21,7 @@
                                 type="submit"
                                 href="{{ route('customers.index') }}"
                             >
+                                <i class="fas fa-list mr-2"></i>
                                 List
                             </a>
                         @else
@@ -29,6 +30,7 @@
                                 type="submit"
                                 href="{{ route('customers.index', ['status' => 'trash']) }}"
                             >
+                                <i class="fas fa-trash mr-2"></i>
                                 Trash
                             </a>
                         @endif

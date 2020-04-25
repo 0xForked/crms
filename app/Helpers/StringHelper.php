@@ -31,3 +31,22 @@ if (! function_exists('avg_read_time_in_detail')) {
             ', ' . $second . ' second' . ($second == 1 ? '' : 's') . ' read';
     }
 }
+
+
+/**
+ * @param $money
+ * @return string formatted_money
+ */
+if (! function_exists('format_money')) {
+    function format_money($money)
+    {
+        $format_money = number_format(
+            $money
+            // $currency->precision,
+            // $currency->decimal_separator,
+            // $currency->thousand_separator
+        );
+
+        return '<span style="font-family: DejaVu Sans, serif;">Rp. </span>' . $format_money;
+    }
+}
