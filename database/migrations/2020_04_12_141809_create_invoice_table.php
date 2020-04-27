@@ -32,24 +32,25 @@ class CreateInvoiceTable extends Migration
             $table->string('invoice_number'); //nomor invoice
             $table->string('reference_number')->nullable(); // masih blm tau
 
+            $table->enum('discount_type', [
+                'PERCENTAGE',
+                'FIXED',
+            ])->default('PERCENTAGE');
+
+            $table->unsignedBigInteger('discount')->nullable(); /// in numeric (percentage = 100%) (fixed Rp. 1000)
+            $table->unsignedBigInteger('sub_total'); // subtotal
+            $table->unsignedBigInteger('total'); // (discount_val - sub_total)
+            $table->unsignedBigInteger('tax'); // tax total
+            $table->unsignedBigInteger('payable'); // (total - tax)
+
+            $table->text('notes')->nullable();
+
             $table->enum('status', [
                 'DRAFT', // default dibuat perlu disortir lagi
                 'NOTIFIED', // diberitahu sudah selesai di sortir dirikim ke customer
                 'PROCEED', // sendang proses, menunggu pembayaran dari customer
                 'PAID' // dibayar tahapan telah selesai
             ])->default('DRAFT');
-
-            $table->unsignedBigInteger('price_item'); // in numeric
-            $table->unsignedBigInteger('tax_item'); // in numeric in 100%
-            $table->unsignedBigInteger('discount_item'); // in numeric in 100%
-            $table->string('discount_type')->nullable();
-            $table->text('notes')->nullable();
-
-            $table->unsignedBigInteger('discount_val')->nullable(); // discount
-            $table->unsignedBigInteger('sub_total'); // subtotal
-            $table->unsignedBigInteger('total'); // (discount_val - sub_total)
-            $table->unsignedBigInteger('tax'); // tax total
-            $table->unsignedBigInteger('due_amount'); // (total - tax)
 
             $table->softDeletes();
             $table->timestamps();
@@ -68,6 +69,8 @@ class CreateInvoiceTable extends Migration
         Schema::create('invoices_has_projects', function (Blueprint $table) {
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('project_id');
+            $table->unsignedBigInteger('price')->nullable(); // in numeric
+            $table->unsignedBigInteger('tax')->nullable(); // in percentage in 100%
             $table->foreign('invoice_id')
                 ->references('id')
                 ->on('invoices')

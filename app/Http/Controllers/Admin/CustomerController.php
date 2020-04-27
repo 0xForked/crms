@@ -20,7 +20,7 @@ class CustomerController extends Controller
     {
         $customers = CustomerFilter::apply(
             $request, (new Customer)->newQuery()
-        )->with('projects')->paginate(10);
+        )->paginate(10);
 
         return view('admin.customers.index', compact('customers'));
     }
@@ -66,16 +66,7 @@ class CustomerController extends Controller
     {
         $customer = Customer::findOrFail($id);
 
-        $customer->name = $request->name;
-        $customer->email =  $request->email;
-        $customer->phone = $request->phone;
-        $customer->address_street_1 = $request->address_street_1;
-        $customer->address_street_2 = $request->address_street_2;
-        $customer->city = $request->city;
-        $customer->state = $request->state;
-        $customer->country_id = $request->country_id;
-        $customer->zip = $request->zip;
-        $customer->save();
+        $customer->updateRequest($request);
 
         return redirect()->route('customers.index')->with(
             'success',

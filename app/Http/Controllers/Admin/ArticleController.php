@@ -7,7 +7,6 @@ use App\Models\{Article, Category};
 use App\Http\Controllers\Controller;
 use App\Http\Filters\ArticleFilter;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
 
 class ArticleController extends Controller
 {
@@ -49,16 +48,7 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
-        $store = Article::create([
-            'category_id' => $request->category,
-            'featured_image' => $request->featured_image,
-            'slug' => Str::slug($request->title, "-").'-'.time(),
-            'title' => $request->title,
-            'content_html' => $request->content_html,
-            'content_json' => $request->content_json,
-            'content_text' => $request->content_text,
-            'status' => $request->status
-        ]);
+        $store = Article::storeRequest($request);
 
         if (!$store) return redirect()->back()->with('error', 'Failed store Article');
 
@@ -91,15 +81,7 @@ class ArticleController extends Controller
     {
         $article = Article::findOrFail($id);
 
-        $article->category_id = $request->category;
-        $article->featured_image = $request->featured_image;
-        $article->slug = Str::slug($request->title, "-").'-'.time();
-        $article->title = $request->title;
-        $article->content_html = $request->content_html;
-        $article->content_json = $request->content_json;
-        $article->content_text = $request->content_text;
-        $article->status = $request->status;
-        $article->save();
+        $article->updateRequest($request);
 
         return redirect()->route('articles.index')->with(
             'success',

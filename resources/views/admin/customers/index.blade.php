@@ -65,7 +65,6 @@
                             <th rowspan="2" class="text-center" width="80">#</th>
                             <th rowspan="2">Name</th>
                             <th colspan="2" scope='colgroup' class="text-center">Contact</th>
-                            <th rowspan="2" class="text-center">Projects</th>
                             <th rowspan="2" width="150" class="text-center">Action</th>
                         </tr>
                         <tr>
@@ -81,17 +80,6 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="tel:{{$item->phone}}">{{$item->phone}}</a>
-                                </td>
-                                <td class="text-center">
-                                    @foreach($item->projects as $project)
-                                        <a class="m-1" href="{{url('projects' . '?' . http_build_query(['title'=> $project->title]))}}">
-                                            <span class="badge badge-dark"> {{ $project->title }} </span>
-                                        </a>
-                                    @endforeach
-
-                                    @if(count($item->projects) < 1)
-                                        Customer has no project!
-                                    @endif
                                 </td>
                                 <td class="text-center">
                                     @if(!$item->deleted_at)

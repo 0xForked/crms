@@ -47,18 +47,7 @@ class ProjectController extends Controller
     {
         $store_link = $this->storeLink($request);
 
-        $store = Project::create([
-            'featured_image' => $request->featured_image,
-            'title' => $request->title,
-            'slug' => Str::slug($request->title, "-").'-'.time(),
-            'description' => $request->description,
-            'link_source' => $request->link_source,
-            'link_store' => json_encode($store_link),
-            'link_live' => $request->link_live,
-            'link_doc' => $request->link_doc,
-            'type' => $request->type,
-            'status' => $request->status
-        ]);
+        $store = Project::storeRequest($request, $store_link);
 
         if (!$store) return redirect()->back()->with('error', 'Failed store Project');
 
@@ -91,17 +80,7 @@ class ProjectController extends Controller
 
         $store_link = $this->storeLink($request);
 
-        $project->featured_image = $request->featured_image;
-        $project->title = $request->title;
-        $project->slug = Str::slug($request->title, "-").'-'.time();
-        $project->description = $request->description;
-        $project->link_source = $request->link_source;
-        $project->link_store =  json_encode($store_link);
-        $project->link_live = $request->link_live;
-        $project->link_doc =  $request->link_doc;
-        $project->type = $request->type;
-        $project->status = $request->status;
-        $project->save();
+        $project->updateRequest($request, $store_link);
 
         return redirect()->route('projects.index')->with(
             'success',

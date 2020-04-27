@@ -15,14 +15,14 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('media_id')->nullable();
+            //$table->unsignedBigInteger('media_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->string('link_source')->nullable();
             $table->string('link_live')->nullable(); // for web
             $table->string('link_doc')->nullable(); // documentation link
-            $table->string('featured_image'); // will remove letter
+            $table->string('featured_image')->nullable(); // will remove letter
             $table->text('link_store')->nullable()->comment("for mobile app-store or g-play [['type' => 'type', 'link' => 'link']]");
             $table->enum('type', [
                 'MOBILE', // drafted project | not showing on front-office
@@ -39,10 +39,10 @@ class CreateProjectsTable extends Migration
             $table->index(['slug']);
             $table->softDeletes();
             $table->timestamps();
-            $table->foreign('media_id')
-                ->references('id')
-                ->on('media')
-                ->onDelete('cascade');
+            //$table->foreign('media_id')
+            //    ->references('id')
+            //    ->on('media')
+            //    ->onDelete('cascade');
         });
     }
 

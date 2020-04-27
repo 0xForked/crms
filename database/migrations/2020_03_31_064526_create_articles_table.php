@@ -15,11 +15,11 @@ class CreateArticlesTable extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('media_id')->nullable();
+            //$table->unsignedBigInteger('media_id')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->string('slug')->unique();
             $table->string('title');
-            $table->string('featured_image'); // will remove letter
+            $table->string('featured_image')->nullable(); // will remove letter
             $table->text('content_html')->nullable();
             $table->text('content_json')->nullable();
             $table->text('content_text')->nullable();
@@ -32,10 +32,10 @@ class CreateArticlesTable extends Migration
                 ->references('id')
                 ->on('categories')
                 ->onDelete('set null');
-            $table->foreign('media_id')
-                ->references('id')
-                ->on('media')
-                ->onDelete('cascade');
+            //$table->foreign('media_id')
+            //    ->references('id')
+            //    ->on('media')
+            //    ->onDelete('cascade');
             $table->softDeletes();
             $table->timestamps();
         });

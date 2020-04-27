@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
 
 class Customer extends Model
 {
@@ -30,12 +31,18 @@ class Customer extends Model
         'deleted_at'
     ];
 
-    public function projects()
+    public function updateRequest(Request $request)
     {
-        return $this->belongsToMany(
-            'App\Models\Project',
-            "customers_has_projects"
-        );
+        $this->name = $request->name;
+        $this->email =  $request->email;
+        $this->phone = $request->phone;
+        $this->address_street_1 = $request->address_street_1;
+        $this->address_street_2 = $request->address_street_2;
+        $this->city = $request->city;
+        $this->state = $request->state;
+        $this->country_id = $request->country_id;
+        $this->zip = $request->zip;
+        return $this->save();
     }
 
 }

@@ -39,7 +39,8 @@ class MediaController extends Controller
 
         // create new name for file
         $file = $request->file("file");
-        $fileName = Carbon::now()->timestamp . '_' . uniqid() . '.' . $file->getClientOriginalExtension();
+        $fileName = Carbon::now()->timestamp . '_' . uniqid()
+            . '.' . $file->getClientOriginalExtension();
 
         // upload original file
         Image::make($file)->save(storage_path('app/public/images/') . $fileName);

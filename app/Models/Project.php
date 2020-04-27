@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class Project extends Model
 {
@@ -15,7 +17,7 @@ class Project extends Model
      * @var array
      */
     protected $fillable = [
-        'media_id', 'title', 'slug', 'description',
+        'title', 'slug', 'description',
         'link_source', 'link_store', 'link_live',
         'link_doc', 'type', 'status', 'featured_image'
     ];
@@ -31,11 +33,34 @@ class Project extends Model
         'deleted_at'
     ];
 
-    public function customers()
+    public static function storeRequest(Request $request, $store_link)
     {
-        return $this->belongsToMany(
-            'App\Models\Customer',
-            "customers_has_projects"
-        );
+        return self::create([
+            'featured_image' => $request->featured_image,
+            'title' => $request->title,
+            'slug' => Str::slug($request->title, "-").'-'.time(),
+            'description' => $request->description,
+            'link_source' => $request->link_source,
+            'link_store' => json_encode($store_link),
+            'link_live' => $request->link_live,
+            'link_doc' => $request->link_doc,
+            'type' => $request->type,
+            'status' => $request->status
+        ]);
+    }
+
+    public function updateRequest(Request $request, $store_link)
+    {
+        $this->featured_image = $request->featured_image;
+        $this->title = $request->title;
+        $this->slug = Str::slug($request->title, "-").'-'.time();
+        $this->description = $request->description;
+        $this->link_source = $request->link_source;
+        $this->link_store =  json_encode($store_link);
+        $this->link_live = $request->link_live;
+        $this->link_doc =  $request->link_doc;
+        $this->type = $request->type;
+        $this->status = $request->status;
+        $this->save();
     }
 }
