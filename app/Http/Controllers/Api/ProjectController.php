@@ -14,7 +14,7 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        // showing list of project
     }
 
     /**
@@ -25,6 +25,6 @@ class ProjectController extends Controller
      */
     public function show($id)
     {
-        //
+        // showing detail of project
     }
 }

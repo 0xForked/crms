@@ -1,20 +1,18 @@
 ## TODO CHANGE Auth/Password/Reset form
 
-
 - Account done
 - Setting done
 - Category done
 - media done
 - customer done
-- Article done (need more config)
-- Project done (todo next: customer, invoice, todo activity etc.) (need more config)
-- next Dashboard (integrated with google analytics api)
-- next AP
-
+- Article done 
+- Project done 
+- Invoice (on progress)
 
 #### TODO NEXT
-
-- Article business logic
-- Project business logic 
-- add new features invoice
-- refactor custom js
+- next Dashboard
+    - General Dashboard (statistic between analytics and transaction)
+    - Analytics Dashboard (Integrated with Google Analytics)
+    - Transaction Dashboard (Integrated with Invoices)
+- next API (Articles, Projects, Categories)
+- refactor and minified custom js and css

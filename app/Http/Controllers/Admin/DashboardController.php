@@ -17,9 +17,9 @@ class DashboardController extends Controller
         return view('admin.dashboard.analytic');
     }
 
-    public function incomes()
+    public function transactions()
     {
-        return view('admin.dashboard.incomes');
+        return view('admin.dashboard.transactions');
     }
 
 }

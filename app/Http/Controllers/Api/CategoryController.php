@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        // showing list of categories
     }
 
     /**
@@ -25,6 +25,6 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        //
+        // showing category with article relation
     }
 }

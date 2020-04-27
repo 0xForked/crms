@@ -14,17 +14,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        //
+        // showing list of article
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 }

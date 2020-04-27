@@ -31,7 +31,7 @@ Route::group([
 ], function () {
     Route::get('/dashboard/generals', 'DashboardController@generals');
     Route::get('/dashboard/analytics', 'DashboardController@analytics');
-    Route::get('/dashboard/incomes', 'DashboardController@incomes');
+    Route::get('/dashboard/transactions', 'DashboardController@transactions');
 
     Route::resource('media', 'MediaController')->only([
         'index', 'store', 'show', 'update', 'destroy'

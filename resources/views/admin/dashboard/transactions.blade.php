@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Incomes Dashboard')
+@section('title', 'Transactions Dashboard')
 
 @section('content')
     <div class="section-body">
-        Incomes Dashboard
+        Transaction Dashboard
     </div>
 @endsection

@@ -24,9 +24,9 @@
                             Analytics
                         </a>
                     </li>
-                    <li class="{{(Request::segment(2) === 'incomes') ? 'active' : ''}}">
-                        <a class="nav-link" href="{{url('dashboard/incomes')}}">
-                            Incomes
+                    <li class="{{(Request::segment(2) === 'transactions') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('dashboard/transactions')}}">
+                            Transactions
                         </a>
                     </li>
                 </ul>
