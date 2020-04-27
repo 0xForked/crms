@@ -23,15 +23,15 @@
                 <div class="modal-body">
                     <div class="form-group">
                         <label>Name</label>
-                        <input type="text" class="form-control" name="name" required>
+                        <input type="text" class="form-control" name="name">
                     </div>
                     <div class="form-group">
                         <label>Email address</label>
-                        <input type="email" class="form-control" name="email" required>
+                        <input type="email" class="form-control" name="email">
                     </div>
                     <div class="form-group">
                         <label>Phone number</label>
-                        <input type="text" class="form-control" name="phone" required>
+                        <input type="text" class="form-control" name="phone">
                     </div>
                     <div class="form-group">
                         <label>Country</label>
@@ -45,23 +45,23 @@
                     </div>
                     <div class="form-group">
                         <label>State</label>
-                        <input type="text" class="form-control" name="state" required>
+                        <input type="text" class="form-control" name="state">
                     </div>
                     <div class="form-group">
                         <label>City</label>
-                        <input type="text" class="form-control" name="city" required>
+                        <input type="text" class="form-control" name="city">
                     </div>
                     <div class="form-group">
                         <label>Street address</label>
-                        <textarea name="address_street_1" class="form-control" style="height: 60px" required></textarea>
+                        <textarea name="address_street_1" class="form-control" style="height: 60px"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Street address line 2</label>
-                        <textarea name="address_street_2" class="form-control" style="height: 60px" required></textarea>
+                        <textarea name="address_street_2" class="form-control" style="height: 60px"></textarea>
                     </div>
                     <div class="form-group">
                         <label>Postal/Zip code</label>
-                        <input type="text" class="form-control" name="zip" required>
+                        <input type="text" class="form-control" name="zip">
                     </div>
                 </div>
                 <div class="modal-footer">

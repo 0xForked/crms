@@ -65,6 +65,7 @@
                             <th rowspan="2" class="text-center" width="80">#</th>
                             <th rowspan="2">Name</th>
                             <th colspan="2" scope='colgroup' class="text-center">Contact</th>
+                            <th rowspan="2" class="text-center">Latest Transaction</th>
                             <th rowspan="2" width="150" class="text-center">Action</th>
                         </tr>
                         <tr>
@@ -80,6 +81,14 @@
                                 </td>
                                 <td class="text-center">
                                     <a href="tel:{{$item->phone}}">{{$item->phone}}</a>
+                                </td>
+                                <td class="text-center">
+                                    <button type="button" class="btn btn-dark">
+                                        #INV-19232
+                                        <span class="badge badge-transparent">
+                                            STATUS
+                                        </span>
+                                    </button>
                                 </td>
                                 <td class="text-center">
                                     @if(!$item->deleted_at)
