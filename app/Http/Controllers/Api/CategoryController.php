@@ -3,10 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CategoryResource;
+use App\Http\Traits\ApiResponses;
+use App\Models\Category;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    use ApiResponses;
+
     /**
      * Display a listing of the resource.
      *
@@ -14,17 +19,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        // showing list of categories
+        return ApiResponses::successResponse(
+            CategoryResource::collection(
+                Category::all()
+            )
+        );
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        // showing category with article relation
-    }
 }

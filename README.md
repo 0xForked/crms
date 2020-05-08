@@ -15,4 +15,5 @@
     - Analytics Dashboard (Integrated with Google Analytics)
     - Transaction Dashboard (Integrated with Invoices)
 - next API (Articles, Projects, Categories)
+- client API middleware
 - refactor and minified custom js and css

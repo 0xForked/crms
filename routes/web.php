@@ -16,8 +16,6 @@ use Illuminate\Support\Facades\Route;
 
 // test
 Route::view('/test', 'templates.invoice.invoice1');
-
-
 // when open resource_url '/' user will redirect to /login
 Route::get('/', 'RedirectionController@login');
 // when open resource_url '/dashboard' user will redirect to /dashboard/generals (default)
@@ -71,4 +69,14 @@ Route::group([
     Route::put('/accounts/basic', 'AccountController@basic');
     Route::put('/accounts/password', 'AccountController@password');
     // end of account routes
+});
+
+// local api
+Route::group([
+    'prefix' => 'api',
+    'namespace' => 'Api\Local',
+    'middleware' => ['local_api_auth']
+], function () {
+    Route::get('/media', 'MediaController@index');
+    Route::get('/customers', 'CustomerController@index');
 });

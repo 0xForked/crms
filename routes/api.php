@@ -14,8 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/media', 'Api\MediaController@index');
 
-Route::middleware(['auth_client'])->group(function () {
-    // protected route
+Route::group([
+    'middleware' => 'client_api_auth',
+    'namespace' => 'Api'
+], function () {
+    Route::get('/categories', 'CategoryController@index');
+    Route::get('/articles', 'ArticleController@index');
 });

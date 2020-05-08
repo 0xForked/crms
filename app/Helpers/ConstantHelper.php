@@ -10,4 +10,4 @@ define('PROCEED', 'PROCEED');
 define('PAID', 'PAID');
 define('WEB', 'WEB');
 define('MOBILE', 'MOBILE');
-
+define('DEFAULT_RESPONSE_DESCRIPTION', 'Latest data [GET] successfully!');

@@ -149,6 +149,11 @@ function loadData(route, model) {
         $("#media-loading-message").removeClass('d-none')
     }
 
+    if (model === 'customerList') {
+        $('#customer-table-container tr').remove()
+        $("#customer-loading-message").removeClass('d-none')
+    }
+
     $.ajax({
         type: 'GET',
         url: route,
@@ -157,6 +162,7 @@ function loadData(route, model) {
             if (model === 'customer') showCustomer(data, route)
             if (model === 'media') showMedia(data, route)
             if (model === 'mediaList') showMediaList(data)
+            if (model === 'customerList') showCustomerList(data)
         },
         error: function(data) { console.log(data) }
     })
@@ -235,6 +241,65 @@ function showMediaList(data) {
     return container.innerHTML = object
 }
 
+$("#search-customer").keypress(function(e) {
+    if(e.which === 13) {
+        loadData(
+            baseUrl+'api/customers?search='+$("#search-customer").val(),
+            'customerList'
+        )
+    }
+});
+
+function showCustomerList(response) {
+
+    let container = document.querySelector('#customer-table-container')
+
+    let currentMessage = $("#customer-loading-message")
+    currentMessage.html("Loading customer . . .")
+    currentMessage.addClass('d-none')
+
+    if (response.data.length === 0) {
+        currentMessage.removeClass('d-none')
+        currentMessage.html("No customer found!")
+        return
+    }
+
+    let object = ''
+    response.data.forEach(function (item) {
+        object += `
+            <tr class="p-5 ">
+                <td>
+                    <div class="form-check form-check-inline">
+                        <input type="hidden" name="customer_name`+item.id+`" value="`+item.name+`">
+                        <input type="hidden" name="customer_address`+item.id+`" value="`+item.country.name+`, `+item.state+`, `+item.city+`.">
+                        <input type="hidden" name="customer_contact_phone`+item.id+`" value="`+item.phone+`">
+                        <input type="hidden" name="customer_contact_email`+item.id+`" value="`+item.email+`">
+                        <input
+                            class="form-check-input"
+                            type="radio"
+                            name="customer_item_modal"
+                            id="customer`+item.id+`"
+                            value="`+item.id+`"
+                        >
+                        <label
+                            class="form-check-label ml-2"
+                            for="customer`+item.id+`"
+                        >
+                            `+item.name+`
+                            <small class="text-muted">
+                                <span class="d-block">`+item.country.name+` `+item.state+` `+item.city+`</span>
+                                <span class="d-block">(`+item.phone+` | `+item.email+`)</span>
+                            </small>
+                        </label>
+                    </div>
+                </td>
+            </tr>
+        `
+    })
+
+    return container.innerHTML = object
+}
+
 $("#media-button-modal").on("click", function () {
     let setMessage = true
 
@@ -247,6 +312,34 @@ $("#media-button-modal").on("click", function () {
     })
 
     if (setMessage) alert('No media selected!')
+})
+
+$("#customer-button-modal").on("click", function () {
+    let setMessage = true
+
+    $("input[name='customer_item_modal']").each(function () {
+        if (this.checked) {
+            $("input[name='customer_id']").val(this.value)
+            $("#customer-name").text($('input[name="customer_name'+this.value+'"]').val())
+            $("#customer-address").text($('input[name="customer_address'+this.value+'"]').val())
+            $("#customer-contact").html(
+                '<a href="tel:'+$('input[name="customer_contact_phone'+this.value+'"]').val()+'">Phone</a>'
+                + ' | ' +
+                '<a href="mailto:'+$('input[name="customer_contact_email'+this.value+'"]').val()+'">Email</a>'
+            )
+            $('#select-customer-container').addClass('d-none')
+            $('#selected-customer-container').removeClass('d-none')
+            $("#selectCustomerModal").modal('toggle');
+            setMessage = false
+        }
+    })
+
+    if (setMessage) alert('No customer selected!')
+})
+
+$('#remove-customer-selected').on('click', function () {
+    $('#select-customer-container').removeClass('d-none')
+    $('#selected-customer-container').addClass('d-none')
 })
 
 function projectLinkDisplayed(type) {

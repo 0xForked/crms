@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 
-class ClientAuthorization
+class ClientApiAuthentication
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class ClientAuthorization
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        // on this middleware we will authenticate the client for security purpose
+        // todo on this middleware we will authenticate the client for security purpose
 
         return $next($request);
     }
