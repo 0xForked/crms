@@ -4,13 +4,25 @@
 
 @section('content')
     <div class="section-body">
-        <h2 class="section-title">Create new invoice!</h2>
-        <p class="section-lead">On this page you can make a new invoice for specified customer with multiple projects.</p>
+        <div class="row">
+            <div class="col-12 col-md-8">
+                <h2 class="section-title">Create new invoice!</h2>
+                <p class="section-lead">
+                    On this page you can make a new invoice for specified customer with multiple projects.
+                </p>
+            </div>
+            <div class="col-12 col-md-4 align-self-center">
+                <button class="btn btn-primary float-right">
+                    Create new Invoice
+                </button>
+            </div>
+        </div>
+
         @if(!$errors->any())
             <x-admin.alert></x-admin.alert>
         @endif
 
-        <div class="head-form-container">
+        <div class="head-form-container mt-3">
             <div class="row">
                 <div class="col-12 col-md-6">
                     <div id="select-customer-container">
@@ -149,6 +161,85 @@
                 </div>
             </div>
         </div>
+
+        <div class="list-form-container">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Items</th>
+                                    <th width="180">Quantity</th>
+                                    <th width="300">Price</th>
+                                    <th>Amount</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr id="item1">
+                                    <td>
+                                       <input type="text" class="form-control" placeholder="Type or click to select and item" id="project1">
+                                    </td>
+                                    <td>
+                                        <input type="number" class="form-control" value="1" id="qty1" onchange="amount(1)">
+                                    </td>
+                                    <td>
+                                        <div class="form-group">
+                                            <label></label>
+                                            <div class="input-group">
+                                              <div class="input-group-prepend">
+                                                <div class="input-group-text">
+                                                  Rp.
+                                                </div>
+                                              </div>
+                                              <input type="text" class="form-control currency" id="price1" onchange="amount(1)" value="0">
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        Rp. <span id="ammount1" class="currency">0,00</span>
+                                    </td>
+                                    <td>
+                                        <a href="#">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <a href="#" class="btn-add-item bg-whitesmoke text-center p-3">
+                    <i class="fas fa-shopping-basket"></i>
+                    Add an Item
+                </a>
+            </div>
+        </div>
+
+        <div class="footer-form-container">
+            <div class="row">
+                <div class="col-12 col-md-8">
+                    <div class="form-group">
+                        <label for="notes">Notes</label>
+                        <textarea name="notes" id="notes" class="form-control w-75" style="height: 100px"></textarea>
+                    </div>
+                    <div class="from-group">
+                        <label for="template">Invoice Template</label>
+                        <button class="btn btn-outline-primary d-block">
+                            template 1
+                        </button>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="card">
+                        <div class="card-body text-center p-5">
+                            CALCULATE_HERE
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -158,9 +249,20 @@
 
 @section('custom-style')
     <link rel="stylesheet" href="{{ asset('assets/css/daterangepicker.css') }}">
+    <style>
+        .btn-add-item {
+            text-decoration: none !important;
+            font-weight: 600;
+        }
+        .btn-add-item:hover {
+            background: #e8eeee !important;
+            font-weight: 700;
+        }
+    </style>
 @endsection
 
 @section('custom-script-body')
+    <script src="{{ asset('assets/js/cleave.min.js') }}"></script>
     <script src="{{ asset('assets/js/moment.min.js') }}"></script>
     <script src="{{ asset('assets/js/modules/daterangepicker.js') }}"></script>
     <script>
@@ -168,6 +270,33 @@
             $('#invoice_date').val('{{\Carbon\Carbon::now()->format('Y-m-d')}}');
             $('#due_date').val('{{\Carbon\Carbon::now()->addDays(7)->format('Y-m-d')}}');
         });
+
+        new Cleave('.currency', {
+            numeral: true,
+            numericOnly: true,
+            numeralThousandsGroupStyle: 'thousand',
+            numeralDecimalScale: 2,
+            numeralDecimalMark: ',',
+            delimiter: '.',
+            stripLeadingZeroes: false,
+        });
+
+        function amount(row) {
+            var qty = $('#item'+row+' #qty'+row).val()
+            qty = (qty < 1) ? 1 : qty
+            var price = $('#item'+row+' #price'+row).val().split('.').join('')
+            $('#item'+row+' #qty'+row).val(qty)
+            var amount = (price < 1) ? 0 : (parseInt(qty) * parseInt(price))
+            $('#item'+row+' #ammount'+row).text(number_to_price(amount))
+        }
+
+        function number_to_price(value){
+            if (value == 0) { return '0,00'; }
+            value = parseFloat(value);
+            value = value.toFixed(2).replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1,");
+            value = value.split('.').join('*').split(',').join('.').split('*').join(',');
+            return value;
+        }
     </script>
 @endsection
 
