@@ -20,7 +20,7 @@ class CustomerController extends Controller
     {
         $customers = CustomerFilter::apply(
             $request, (new Customer)->newQuery()
-        )->paginate(10);
+        )->with('invoice')->paginate(10);
 
         return view('admin.customers.index', compact('customers'));
     }

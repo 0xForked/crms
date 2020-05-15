@@ -330,11 +330,11 @@
                 @if(true)
                     <img class="header-logo" src="" alt="Company Logo">
                 @else
-{{--                    $invoice->user->company--}}
+{{--                    $invoices->user->company--}}
                     @if(true)
                         <h2 class="header-logo">
                             COMPANY_NAME
-{{--                            {{$invoice->user->company->name}} --}}
+{{--                            {{$invoices->user->company->name}} --}}
                         </h2>
                     @endif
                 @endif
@@ -346,7 +346,7 @@
 <div class="wrapper">
     <div class="address">
         <div class="company">
-            @include('templates.invoice.partials.company-address')
+            @include('templates.invoices.partials.company-address')
         </div>
         <div class="job-add">
             <table>
@@ -354,21 +354,21 @@
                     <td class="textStyle1" style="text-align: left; color: #55547A">Invoice Number</td>
                     <td class="textStyle2">
                         &nbsp;INVOICE_NUMBER
-{{--                        {{$invoice->invoice_number}}--}}
+{{--                        {{$invoices->invoice_number}}--}}
                     </td>
                 </tr>
                 <tr>
                     <td class="textStyle1" style="text-align: left; color: #55547A">Invoice Date </td>
                     <td class="textStyle2">
                         &nbsp;INVOICE_DATE
-{{--                        {{$invoice->formattedInvoiceDate}}--}}
+{{--                        {{$invoices->formattedInvoiceDate}}--}}
                     </td>
                 </tr>
                 <tr>
                     <td class="textStyle1" style="text-align: left; color: #55547A">Due date</td>
                     <td class="textStyle2">
                         &nbsp;DUE_DATE
-{{--                        {{$invoice->formattedDueDate}}--}}
+{{--                        {{$invoices->formattedDueDate}}--}}
                     </td>
                 </tr>
             </table>
@@ -377,22 +377,22 @@
     </div>
     <div class="bill-add">
         <div class="bill-address-container">
-            @include('templates.invoice.partials.billing-address')
+            @include('templates.invoices.partials.billing-address')
         </div>
-{{--        $invoice->user->billingaddress--}}
+{{--        $invoices->user->billingaddress--}}
         @if(true)
             <div class="ship-address-container">
         @else
             <div class="ship-address-container " style="float:left;padding-left:0px;">
         @endif
-                @include('templates.invoice.partials.shipping-address')
+                @include('templates.invoices.partials.shipping-address')
             </div>
             <div style="clear: both;"></div>
     </div>
     <div style="position:relative">
-        @include('templates.invoice.partials.table')
+        @include('templates.invoices.partials.table')
     </div>
-        @include('templates.invoice.partials.notes')
+        @include('templates.invoices.partials.notes')
     </div>
 </div>
 </body>

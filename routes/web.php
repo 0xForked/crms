@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 // test
-Route::view('/test', 'templates.invoice.invoice1');
+Route::view('/test', 'templates.invoices.invoice1');
 // when open resource_url '/' user will redirect to /login
 Route::get('/', 'RedirectionController@login');
 // when open resource_url '/dashboard' user will redirect to /dashboard/generals (default)

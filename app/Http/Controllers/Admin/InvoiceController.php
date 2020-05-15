@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\{Customer, Invoice, Project};
+use App\Models\{Customer, Invoice, Project, Template};
 use Illuminate\Http\Request;
 use App\Http\Filters\InvoiceFilter;
 
@@ -24,7 +24,10 @@ class InvoiceController extends Controller
 
         $customers = Customer::all();
 
-        return view('admin.invoices.index', compact('invoices', 'customers'));
+        return view(
+            'admin.invoices.index',
+            compact('invoices', 'customers')
+        );
     }
 
     /**
@@ -38,7 +41,12 @@ class InvoiceController extends Controller
 
         $projects = Project::all();
 
-        return view('admin.invoices.add', compact('customers', 'projects'));
+        $templates = Template::type('INVOICE')->get();
+
+        return view(
+            'admin.invoices.add',
+            compact('customers', 'projects', 'templates')
+        );
     }
 
     /**

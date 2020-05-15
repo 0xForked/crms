@@ -4,7 +4,7 @@
         <th width="40%" class="ItemTableHeader" style="text-align: left; color: #55547A; padding-left: 0px">Items</th>
         <th class="ItemTableHeader" style="text-align: right; color: #55547A; padding-right: 20px">Quantity</th>
         <th class="ItemTableHeader" style="text-align: right; color: #55547A; padding-right: 20px">Price</th>
-{{--        $invoice->discount_per_item === 'YES'--}}
+{{--        $invoices->discount_per_item === 'YES'--}}
         @if(true)
             <th class="ItemTableHeader" style="text-align: right; color: #55547A; padding-left: 10px">Discount</th>
         @endif
@@ -57,9 +57,9 @@
                 style="text-align: right; color: #040405; padding-right: 20px"
             >
                 Rp. {{$item->price}}
-{{--                {!! format_money_pdf($item->price, $invoice->user->currency) !!}--}}
+{{--                {!! format_money_pdf($item->price, $invoices->user->currency) !!}--}}
             </td>
-{{--            $invoice->discount_per_item === 'YES'--}}
+{{--            $invoices->discount_per_item === 'YES'--}}
             @if(true)
                 <td class="inv-item items" style="text-align: right; color: #040405; padding-left: 10px">
                     {{$item->discount}}%
@@ -70,7 +70,7 @@
                 style="text-align: right; color: #040405;"
             >
                 Rp. {{$item->total}}
-{{--                {!! format_money_pdf($item->total, $invoice->user->currency) !!}--}}
+{{--                {!! format_money_pdf($item->total, $invoices->user->currency) !!}--}}
             </td>
         </tr>
         @php
@@ -88,50 +88,50 @@
         <td class="no-border items padd2"
             style="padding-right:10px; text-align: right;  font-size:12px; color: #040405; font-weight: 500;">
 {{--            Total --}}
-{{--            {!! format_money_pdf($invoice->sub_total, $invoice->user->currency) !!}--}}
+{{--            {!! format_money_pdf($invoices->sub_total, $invoices->user->currency) !!}--}}
         </td>
     </tr>
 
-{{--    @if ($invoice->tax_per_item === 'YES')--}}
+{{--    @if ($invoices->tax_per_item === 'YES')--}}
 {{--        @for ($i = 0; $i < count($labels); $i++)--}}
 {{--            <tr>--}}
 {{--                <td class="no-border" style="padding-left:10px; text-align:left; font-size:12px;  color: #55547A;">--}}
 {{--                    {{$labels[$i]}}--}}
 {{--                </td>--}}
 {{--                <td class="no-border items padd2" style="padding-right:10px; font-weight: 500; text-align: right; font-size:12px;  color: #040405">--}}
-{{--                    {!! format_money_pdf($taxes[$i], $invoice->user->currency) !!}--}}
+{{--                    {!! format_money_pdf($taxes[$i], $invoices->user->currency) !!}--}}
 {{--                </td>--}}
 {{--            </tr>--}}
 {{--        @endfor--}}
 {{--    @else--}}
-{{--        @foreach ($invoice->taxes as $tax)--}}
+{{--        @foreach ($invoices->taxes as $tax)--}}
 {{--            <tr>--}}
 {{--                <td class="no-border" style="padding-left:10px; text-align:left; font-size:12px;  color: #55547A;">--}}
 {{--                    {{$tax->name.' ('.$tax->percent.'%)'}}--}}
 {{--                </td>--}}
 {{--                <td class="no-border items padd2" style="padding-right:10px; font-weight: 500; text-align: right; font-size:12px;  color: #040405">--}}
-{{--                    {!! format_money_pdf($tax->amount, $invoice->user->currency) !!}--}}
+{{--                    {!! format_money_pdf($tax->amount, $invoices->user->currency) !!}--}}
 {{--                </td>--}}
 {{--            </tr>--}}
 {{--        @endforeach--}}
 {{--    @endif--}}
 
-{{--    @if ($invoice->discount_per_item === 'NO')--}}
+{{--    @if ($invoices->discount_per_item === 'NO')--}}
 {{--        <tr>--}}
 {{--            <td class="no-border" style="padding-left:10px; text-align:left; font-size:12px; color: #55547A;">--}}
-{{--                @if($invoice->discount_type === 'fixed')--}}
+{{--                @if($invoices->discount_type === 'fixed')--}}
 {{--                    Discount--}}
 {{--                @endif--}}
-{{--                @if($invoice->discount_type === 'percentage')--}}
-{{--                    Discount ({{$invoice->discount}}%)--}}
+{{--                @if($invoices->discount_type === 'percentage')--}}
+{{--                    Discount ({{$invoices->discount}}%)--}}
 {{--                @endif--}}
 {{--            </td>--}}
 {{--            <td class="no-border items padd2" style="padding-right:10px; font-weight: 500; text-align: right; font-size:12px;  color: #040405">--}}
-{{--                @if($invoice->discount_type === 'fixed')--}}
-{{--                    {!! format_money_pdf($invoice->discount_val, $invoice->user->currency) !!}--}}
+{{--                @if($invoices->discount_type === 'fixed')--}}
+{{--                    {!! format_money_pdf($invoices->discount_val, $invoices->user->currency) !!}--}}
 {{--                @endif--}}
-{{--                @if($invoice->discount_type === 'percentage')--}}
-{{--                    {!! format_money_pdf($invoice->discount_val, $invoice->user->currency) !!}--}}
+{{--                @if($invoices->discount_type === 'percentage')--}}
+{{--                    {!! format_money_pdf($invoices->discount_val, $invoices->user->currency) !!}--}}
 {{--                @endif--}}
 {{--            </td>--}}
 {{--        </tr>--}}
@@ -151,7 +151,7 @@
             style="padding-right:10px; font-weight: 500; text-align: right; font-size:12px;  padding-top:20px; color: #5851DB"
         >
             ITEM_TOTAL
-{{--            {!! format_money_pdf($invoice->total, $invoice->user->currency)!!}--}}
+{{--            {!! format_money_pdf($invoices->total, $invoices->user->currency)!!}--}}
         </td>
     </tr>
 </table>

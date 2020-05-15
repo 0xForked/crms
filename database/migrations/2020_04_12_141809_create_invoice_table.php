@@ -13,23 +13,15 @@ class CreateInvoiceTable extends Migration
      */
     public function up()
     {
-        Schema::create('invoice_templates', function (Blueprint $table) {
-            $table->id();
-            $table->string('name')->nullable();
-            $table->string('view');
-            $table->string('path');
-            $table->timestamps();
-        });
-
         Schema::create('invoices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('customer_id')->nullable();
-            $table->unsignedBigInteger('invoice_template_id')->nullable();
+            $table->unsignedBigInteger('template_id')->nullable();
 
-            $table->date('invoice_date');  // tanggal invoice
-            $table->date('due_date');  //batas waktu invoice
+            $table->date('invoice_date');  // tanggal invoices
+            $table->date('due_date');  //batas waktu invoices
 
-            $table->string('invoice_number'); //nomor invoice
+            $table->string('invoice_number'); //nomor invoices
             $table->string('reference_number')->nullable(); // masih blm tau
 
             $table->enum('discount_type', [
@@ -60,17 +52,17 @@ class CreateInvoiceTable extends Migration
                 ->on('customers')
                 ->onDelete('cascade');
 
-            $table->foreign('invoice_template_id')
-                ->references('id')
-                ->on('invoice_templates');
+            //$table->foreign('invoice_template_id')
+            //    ->references('id')
+            //    ->on('templates');
         });
-
 
         Schema::create('invoices_has_projects', function (Blueprint $table) {
             $table->unsignedBigInteger('invoice_id');
             $table->unsignedBigInteger('project_id');
             $table->unsignedBigInteger('price')->nullable(); // in numeric
             $table->unsignedBigInteger('tax')->nullable(); // in percentage in 100%
+            $table->unsignedBigInteger('qty')->nullable(); // in percentage in 100%
             $table->foreign('invoice_id')
                 ->references('id')
                 ->on('invoices')
@@ -90,7 +82,6 @@ class CreateInvoiceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('invoice_templates');
         Schema::dropIfExists('invoices');
         Schema::dropIfExists('invoices_has_projects');
     }

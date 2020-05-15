@@ -1,7 +1,7 @@
-{{--$invoice->user->company--}}
+{{--$invoices->user->company--}}
 @if(true)
     <h1>COMPANY_NAME</h1>
-{{--    <h1> {{$invoice->user->company->name}} </h1>--}}
+{{--    <h1> {{$invoices->user->company->name}} </h1>--}}
 @endif
 
 {{--$company_address--}}

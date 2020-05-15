@@ -31,6 +31,16 @@ class Customer extends Model
         'deleted_at'
     ];
 
+    public function invoice()
+    {
+        return $this->hasOne('App\\Models\\Invoice')->latest();
+    }
+
+    public function invoices()
+    {
+        return $this->hasMany('App\\Models\\Invoice')->latest();
+    }
+
     public function updateRequest(Request $request)
     {
         $this->name = $request->name;

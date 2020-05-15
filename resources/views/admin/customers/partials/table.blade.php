@@ -16,18 +16,30 @@
                 <td class="text-center">{{$loop->iteration}}</td>
                 <td>{{$item->name}}</td>
                 <td class="text-center">
-                    <a href="mailto:{{$item->email}}">{{$item->email}}</a>
+                    @if($item->email)
+                        <a href="mailto:{{$item->email}}">{{$item->email}}</a>
+                    @else
+                        NOT_SET
+                    @endif
                 </td>
                 <td class="text-center">
-                    <a href="tel:{{$item->phone}}">{{$item->phone}}</a>
+                    @if($item->phone)
+                        <a href="tel:{{$item->phone}}">{{$item->phone}}</a>
+                    @else
+                        NOT_SET
+                    @endif
                 </td>
                 <td class="text-center">
-                    <button type="button" class="btn btn-dark">
-                        #INV-19232
-                        <span class="badge badge-transparent">
-                                            STATUS
-                                        </span>
-                    </button>
+                    @if($item->invoice)
+                        <button type="button" class="btn btn-dark">
+                            {{$item->invoice->invoice_number}}
+                            <span class="badge badge-transparent">
+                                {{$item->invoice->status}}
+                            </span>
+                        </button>
+                    @else
+                        NONE
+                    @endif
                 </td>
                 <td class="text-center">
                     @if(!$item->deleted_at)
@@ -46,8 +58,8 @@
                             href="{{ route('customers.restore', $item->id) }}"
                             class="btn btn-outline-success btn-block"
                             onclick="event.preventDefault();
-                                            document.getElementById('restore-form').submit();
-                                            showLoading();"
+                                     document.getElementById('restore-form').submit();
+                                     showLoading();"
                         >
                             <i class="fas fa-trash-restore"></i> Restore
                         </a>

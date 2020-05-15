@@ -219,23 +219,18 @@
 
         <div class="footer-form-container">
             <div class="row">
-                <div class="col-12 col-md-8">
+                <div class="col-12 col-md-6">
                     <div class="form-group">
                         <label for="notes">Notes</label>
-                        <textarea name="notes" id="notes" class="form-control w-75" style="height: 100px"></textarea>
+                        <textarea name="notes" id="notes" class="form-control" style="height: 100px"></textarea>
                     </div>
                     <div class="from-group">
                         <label for="template">Invoice Template</label>
-                        <button class="btn btn-outline-primary d-block">
-                            template 1
-                        </button>
-                    </div>
-                </div>
-                <div class="col-12 col-md-4">
-                    <div class="card">
-                        <div class="card-body text-center p-5">
-                            CALCULATE_HERE
-                        </div>
+                        @foreach($templates as $item)
+                            <button class="btn btn-outline-primary d-block">
+                                {{$item->name}}
+                            </button>
+                        @endforeach
                     </div>
                 </div>
             </div>

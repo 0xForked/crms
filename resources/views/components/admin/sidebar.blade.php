@@ -75,14 +75,14 @@
                     <span>Work</span>
                 </a>
                 <ul class="dropdown-menu">
-                    <li class="{{(Request::segment(1) === 'customers') ? 'active' : ''}}">
-                        <a class="nav-link" href="{{url('customers')}}">
-                            Customers
-                        </a>
-                    </li>
                     <li class="{{(Request::segment(1) === 'projects') ? 'active' : ''}}">
                         <a class="nav-link" href="{{url('projects')}}">
                             Projects
+                        </a>
+                    </li>
+                    <li class="{{(Request::segment(1) === 'customers') ? 'active' : ''}}">
+                        <a class="nav-link" href="{{url('customers')}}">
+                            Customers
                         </a>
                     </li>
                     <li class="{{(Request::segment(1) === 'invoices') ? 'active' : ''}}">
