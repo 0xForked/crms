@@ -10,7 +10,7 @@ if (! function_exists('avg_read_time')) {
         $minutes = floor( $seconds / 60 );
 
         $default_string = "Less than 1 minute read";
-        $concat_string = $minutes." minute".($minutes > 1) ? 's' : ''." read";
+        $concat_string = $minutes . " minute" . ($minutes > 1 ? 's' : '') . " read";
 
         return ( $minutes < 1 )  ? $default_string : $concat_string;
     }
