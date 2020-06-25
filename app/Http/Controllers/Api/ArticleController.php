@@ -21,14 +21,13 @@ class ArticleController extends Controller
      */
     public function index(Request $request)
     {
-        return ApiResponses::successResponse(
-            ArticleResource::collection(
-                ArticleApiFilter::apply(
-                    $request, (new Article)->newQuery()
-                )->with('category')
-                    ->where('status', PUBLISH)
-                    ->paginate(20)
-            )
+        return ArticleResource::collection(
+            ArticleApiFilter::apply(
+                $request, (new Article)->newQuery()
+            )->with('category')
+                ->where('status', PUBLISH)
+                ->latest()
+                ->paginate(10)
         );
     }
 

@@ -6,6 +6,7 @@ use Illuminate\Http\Resources\Json\JsonResource;
 
 class ArticleResource extends JsonResource
 {
+
     /**
      * Transform the resource into an array.
      *
@@ -28,7 +29,7 @@ class ArticleResource extends JsonResource
                 'id' => $this->category->id,
                 'name' => $this->category->name
             ],
-            'created_at' => $this->created_at
+            'created_at' => $this->created_at->format('M jS, Y')
         ];
     }
 }
