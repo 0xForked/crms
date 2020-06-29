@@ -21,4 +21,5 @@ Route::group([
 ], function () {
     Route::get('/categories', 'CategoryController@index');
     Route::get('/articles', 'ArticleController@index');
+    Route::get('/articles/{slug}', 'ArticleController@show');
 });

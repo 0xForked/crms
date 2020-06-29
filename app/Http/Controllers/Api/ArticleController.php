@@ -31,4 +31,12 @@ class ArticleController extends Controller
         );
     }
 
+    public function show(Request $request)
+    {
+        return new ArticleResource(
+            Article::where('slug', $request->slug)
+            ->firstOrFail()
+        );
+    }
+
 }

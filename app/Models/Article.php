@@ -63,4 +63,24 @@ class Article extends Model
     {
         return $this->belongsTo('App\Models\Category');
     }
+
+    public function related()
+    {
+        $first = $this->first();
+        $last = $this->latest('id')->first();
+
+        if ($this->id === $first->id) {
+            $next = $this->where('id', '>', $this->id)->orderBy('id','asc')->limit(2)->get();
+            $article = $next;
+        } else if ($this->id === $last->id) {
+            $prev = $this->where('id', '<', $this->id)->orderBy('id','desc')->limit(2)->get();
+            $article = $prev;
+        } else {
+            $prev = $this->where('id', '<', $this->id)->orderBy('id','desc')->first();
+            $next = $this->where('id', '>', $this->id)->orderBy('id','asc')->first();
+            $article = [$prev, $next];
+        }
+
+        return $article;
+    }
 }
