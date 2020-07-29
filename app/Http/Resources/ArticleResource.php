@@ -29,6 +29,7 @@ class ArticleResource extends JsonResource
                 'id' => $this->category->id,
                 'name' => $this->category->name
             ],
+            "default_read_time" => avg_read_time($this->content_text),
             'created_at' => $this->created_at->format('M jS, Y'),
             'related' => $this->related() ? RelatedArticleResource::collection($this->related()) : null
         ];
