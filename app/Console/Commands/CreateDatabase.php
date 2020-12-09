@@ -3,7 +3,8 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
+use PDO;
+use PDOException;
 
 class CreateDatabase extends Command
 {
@@ -22,6 +23,13 @@ class CreateDatabase extends Command
     protected $description = 'Create a new MySql database schema';
 
     /**
+     * The PDO connection state
+     *
+     * @var PDO
+     */
+    private $pdo_connection;
+    
+    /**
      * Create a new command instance.
      *
      * @return void
@@ -29,6 +37,8 @@ class CreateDatabase extends Command
     public function __construct()
     {
         parent::__construct();
+        
+        $this->pdo_connection = $this->getPDOConnection();
     }
 
     /**
@@ -38,22 +48,41 @@ class CreateDatabase extends Command
      */
     public function handle()
     {
+        $database = env('DB_DATABASE', "assitev2_db");
+
         try {
-            $name = config("database.connections.mysql.database");
-            $charset = config("database.connections.mysql.charset",'utf8mb4');
-            $collation = config("database.connections.mysql.collation",'utf8mb4_unicode_ci');
+            $query = $this->pdo_connection->exec(sprintf(
+                'CREATE DATABASE IF NOT EXISTS %s CHARACTER SET %s COLLATE %s;',
+                $database,
+                env('DB_CHARSET'),
+                env('DB_COLLATION')
+            ));
 
-            $query = "CREATE DATABASE IF NOT EXISTS $name CHARACTER SET $charset COLLATE $collation;";
-            $action = DB::statement($query);
-
-            if (!$action) {
-                $this->error("Failed add new schema $name on database");
+            if (!$query) {
+                $this->info(sprintf('Database %s is Exist', $database));
                 return;
             }
 
-            $this->info("Schema $name is exist on database");
-        } catch (\Exception $e) {
-            $this->error($e->getMessage());
+            $this->info(sprintf('Successfully created %s database', $database));
+        } catch (PDOException $exception) {
+            $this->error(sprintf('Failed to create %s database, %s', $database, $exception->getMessage()));
         }
+    }
+    
+    /**
+     * The PDO Connection
+     *
+     * @return PDO
+     */
+    private function getPDOConnection(): PDO {
+        return new PDO(
+            sprintf(
+                'mysql:host=%s;port=%d;',
+                env('DB_HOST'),
+                env('DB_PORT')
+            ),
+            env('DB_USERNAME'),
+            env('DB_PASSWORD')
+        );
     }
 }
